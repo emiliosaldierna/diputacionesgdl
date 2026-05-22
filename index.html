@@ -59,6 +59,10 @@ body {
 .block-zone.b4.dragover{background:rgba(0,180,150,0.15);}
 .b4 .block-name{color:#00b496;}
 .b4 .block-pct{color:#00b496;}
+.block-zone.b5{background:rgba(255,80,180,0.08);border-color:rgba(255,80,180,0.4);}
+.block-zone.b5.dragover{background:rgba(255,80,180,0.15);}
+.b5 .block-name{color:#ff50b4;}
+.b5 .block-pct{color:#ff50b4;}
 .party-indiv-card{flex:1;min-width:130px;max-width:200px;padding:12px 14px;background:rgba(5,8,16,0.7);border-radius:6px;border:2px solid transparent;position:relative;overflow:hidden;}
 .party-indiv-card .rank{position:absolute;top:8px;right:10px;font-size:9px;color:var(--text-tri);font-weight:700;}
 .party-indiv-card .p-name{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
@@ -178,10 +182,12 @@ body {
   <div class="bb-title">▶ Constructor de Bloques Principal · También define Tabla A</div>
   <div class="bb-sub">Arrastra los partidos. Afecta KPIs, gráfica histórica y la Tabla A de escenarios.</div>
   <div class="parties-pool" id="pool-a"><span class="pool-label">Partidos sin asignar</span></div>
-  <div class="blocks-grid">
+  <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;">
     <div class="block-zone b1" id="zone-1" data-zone="1"><div class="block-header"><input class="block-name" id="block-name-1" value="BLOQUE 1"><div class="block-stats"><div class="block-pct" id="block-pct-1">0%</div><div id="block-votes-1" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
     <div class="block-zone b2" id="zone-2" data-zone="2"><div class="block-header"><input class="block-name" id="block-name-2" value="BLOQUE 2"><div class="block-stats"><div class="block-pct" id="block-pct-2">0%</div><div id="block-votes-2" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
     <div class="block-zone b3" id="zone-3" data-zone="3"><div class="block-header"><input class="block-name" id="block-name-3" value="BLOQUE 3"><div class="block-stats"><div class="block-pct" id="block-pct-3">0%</div><div id="block-votes-3" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
+    <div class="block-zone b4" id="zone-4" data-zone="4"><div class="block-header"><input class="block-name" id="block-name-4" value="BLOQUE 4"><div class="block-stats"><div class="block-pct" id="block-pct-4">0%</div><div id="block-votes-4" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
+    <div class="block-zone b5" id="zone-5" data-zone="5"><div class="block-header"><input class="block-name" id="block-name-5" value="BLOQUE 5"><div class="block-stats"><div class="block-pct" id="block-pct-5">0%</div><div id="block-votes-5" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
   </div>
   <div class="bb-actions">
     <button class="bb-btn preset" onclick="applyPreset('4t')">4T vs MC vs Frente</button>
@@ -205,7 +211,7 @@ body {
 
 <div class="panel">
   <div class="panel-header">
-    <div><div class="panel-title">Comparativa de Escenarios</div><div class="panel-sub">Tabla A usa bloques del constructor principal · Tabla B tiene constructor independiente de 4 bloques</div></div>
+    <div><div class="panel-title">Comparativa de Escenarios</div><div class="panel-sub">Tabla A usa bloques del constructor principal · Tabla B tiene constructor independiente de 5 bloques</div></div>
   </div>
 
   
@@ -232,13 +238,14 @@ body {
     <div class="scen-card" style="border-color:rgba(0,240,255,0.35);">
       <div class="scen-card-title" style="color:var(--cyan);">🅑 <input class="scen-name" id="scen-name-b" value="Tabla B" style="color:var(--cyan);border-bottom-color:var(--cyan);"></div>
       <div class="mini-builder">
-        <div class="mini-builder-title">Constructor de Bloques · Independiente · 4 bloques</div>
+        <div class="mini-builder-title">Constructor de Bloques · Independiente · 5 bloques</div>
         <div class="parties-pool" id="pool-b" style="min-height:36px;margin-bottom:8px;"><span class="pool-label">Partidos sin asignar</span></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="blocks-b-grid">
+        <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;" id="blocks-b-grid">
           <div class="block-zone b1" id="zone-b-1" data-zone="b1"><div class="block-header"><input class="block-name" id="block-b-name-1" value="BLOQUE B1"><div class="block-stats"><div class="block-pct" id="block-b-pct-1">0%</div><div id="block-b-votes-1" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
           <div class="block-zone b2" id="zone-b-2" data-zone="b2"><div class="block-header"><input class="block-name" id="block-b-name-2" value="BLOQUE B2"><div class="block-stats"><div class="block-pct" id="block-b-pct-2">0%</div><div id="block-b-votes-2" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
           <div class="block-zone b3" id="zone-b-3" data-zone="b3"><div class="block-header"><input class="block-name" id="block-b-name-3" value="BLOQUE B3"><div class="block-stats"><div class="block-pct" id="block-b-pct-3">0%</div><div id="block-b-votes-3" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
           <div class="block-zone b4" id="zone-b-4" data-zone="b4"><div class="block-header"><input class="block-name" id="block-b-name-4" value="BLOQUE B4"><div class="block-stats"><div class="block-pct" id="block-b-pct-4">0%</div><div id="block-b-votes-4" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
+          <div class="block-zone b5" id="zone-b-5" data-zone="b5"><div class="block-header"><input class="block-name" id="block-b-name-5" value="BLOQUE B5"><div class="block-stats"><div class="block-pct" id="block-b-pct-5">0%</div><div id="block-b-votes-5" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
         </div>
         <div class="bb-actions" style="margin-top:8px;">
           <button class="bb-btn preset" onclick="applyPresetB('default')">MORENA+PT · MC+PVEM · PAN · PRI+PRD+HAG+FUT</button>
@@ -261,8 +268,8 @@ body {
     <table class="merged-table" id="merged-table">
       <thead><tr>
         <th>DTTO</th>
-        <th id="mha1">A-B1</th><th id="mha2">A-B2</th><th id="mha3">A-B3</th><th>GANADOR A</th>
-        <th id="mhb1">B-B1</th><th id="mhb2">B-B2</th><th id="mhb3">B-B3</th><th id="mhb4">B-B4</th><th>GANADOR B</th>
+        <th id="mha1">A-B1</th><th id="mha2">A-B2</th><th id="mha3">A-B3</th><th id="mha4">A-B4</th><th id="mha5">A-B5</th><th>GANADOR A</th>
+        <th id="mhb1">B-B1</th><th id="mhb2">B-B2</th><th id="mhb3">B-B3</th><th id="mhb4">B-B4</th><th id="mhb5">B-B5</th><th>GANADOR B</th>
         <th>¿COINCIDE?</th>
       </tr></thead>
       <tbody></tbody>
@@ -380,7 +387,7 @@ const DIPS={
 };
 const PC={PAN:'#1565c0',PRI:'#c62828',PRD:'#f9a825',PVEM:'#2e7d32',PT:'#b71c1c',MC:'#e65100',MORENA:'#6a0000',HAGAMOS:'#6a1b9a',FUTURO:'#00838f',PES:'#4527a0'};
 const PL={PAN:'PAN',PRI:'PRI',PRD:'PRD',PVEM:'PVEM',PT:'PT',MC:'MC',MORENA:'MORENA',HAGAMOS:'HAGAMOS',FUTURO:'FUTURO',PES:'PES'};
-const BC=['var(--b1)','var(--b2)','var(--b3)'];
+const BC=['var(--b1)','var(--b2)','var(--b3)','#00b496','#ff50b4'];
 
 const D=[
   {y:2018,d:1,PAN:30601,PRI:35322,PRD:2767,PVEM:6716,PT:6909,MC:41288,MORENA:32250,PES:1475,HAGAMOS:0,FUTURO:0,T:165474},
@@ -446,9 +453,9 @@ const D=[
 ];
 
 // STATE
-let blocks={1:[],2:[],3:[]}, bNames={1:'BLOQUE 1',2:'BLOQUE 2',3:'BLOQUE 3'};
-let blocksB={1:[],2:[],3:[],4:[]}, bNamesB={1:'BLOQUE B1',2:'BLOQUE B2',3:'BLOQUE B3',4:'BLOQUE B4'};
-const BC4=['var(--b1)','var(--b2)','var(--b3)','#00b496'];
+let blocks={1:[],2:[],3:[],4:[],5:[]}, bNames={1:'BLOQUE 1',2:'BLOQUE 2',3:'BLOQUE 3',4:'BLOQUE 4',5:'BLOQUE 5'};
+let blocksB={1:[],2:[],3:[],4:[],5:[]}, bNamesB={1:'BLOQUE B1',2:'BLOQUE B2',3:'BLOQUE B3',4:'BLOQUE B4',5:'BLOQUE B5'};
+const BC4=['var(--b1)','var(--b2)','var(--b3)','#00b496','#ff50b4'];
 let histMode='bloques', histChart=null, mergeVisible=false;
 
 // HELPERS
@@ -471,7 +478,7 @@ const partiesFor=y=>{
 // POOL A — NUNCA borra partidos de los bloques; solo controla qué aparece en el pool
 function rebuildPoolA(){
   const y=getY();const pts=partiesFor(y=='all'?'all':+y);
-  const inB=[].concat(blocks[1],blocks[2],blocks[3]);
+  const inB=[].concat(blocks[1],blocks[2],blocks[3],blocks[4],blocks[5]);
   const pool=document.getElementById('pool-a');
   const lbl=pool.querySelector('.pool-label');pool.innerHTML='';
   pool.appendChild(lbl||Object.assign(document.createElement('span'),{className:'pool-label',textContent:'Partidos sin asignar'}));
@@ -502,14 +509,14 @@ function mkChip(p,ctx,isB){
   return c;
 }
 function renderBlocksA(){
-  for(let b=1;b<=3;b++){const z=document.getElementById('zone-'+b);z.querySelectorAll('.party-chip').forEach(c=>c.remove());blocks[b].forEach(p=>z.appendChild(mkChip(p,String(b),false)));}
+  for(let b=1;b<=5;b++){const z=document.getElementById('zone-'+b);if(!z)continue;z.querySelectorAll('.party-chip').forEach(c=>c.remove());(blocks[b]||[]).forEach(p=>z.appendChild(mkChip(p,String(b),false)));}
 }
 function removeA(p,ctx){const b=+ctx;blocks[b]=blocks[b].filter(x=>x!==p);renderBlocksA();rebuildPoolA();refresh();}
 
 // POOL B — NUNCA borra partidos de los bloques; solo controla qué aparece en el pool
 function rebuildPoolB(){
   const y=getY();const pts=partiesFor(y=='all'?'all':+y);
-  const inB=[].concat(blocksB[1],blocksB[2],blocksB[3],blocksB[4]);
+  const inB=[].concat(blocksB[1],blocksB[2],blocksB[3],blocksB[4],blocksB[5]);
   const pool=document.getElementById('pool-b');
   const lbl=pool.querySelector('.pool-label');pool.innerHTML='';
   pool.appendChild(lbl||Object.assign(document.createElement('span'),{className:'pool-label',textContent:'Partidos sin asignar'}));
@@ -517,14 +524,14 @@ function rebuildPoolB(){
   updBStats();
 }
 function renderBlocksB(){
-  for(let b=1;b<=4;b++){const z=document.getElementById('zone-b-'+b);if(!z)continue;z.querySelectorAll('.party-chip').forEach(c=>c.remove());(blocksB[b]||[]).forEach(p=>z.appendChild(mkChip(p,'b'+b,true)));}
+  for(let b=1;b<=5;b++){const z=document.getElementById('zone-b-'+b);if(!z)continue;z.querySelectorAll('.party-chip').forEach(c=>c.remove());(blocksB[b]||[]).forEach(p=>z.appendChild(mkChip(p,'b'+b,true)));}
   updBStats();
 }
 function removeB(p,ctx){const b=+ctx.replace('b','');blocksB[b]=blocksB[b].filter(x=>x!==p);renderBlocksB();rebuildPoolB();refresh();}
 function updBStats(){
   const y=getY();const rows=y=='all'?D:D.filter(r=>r.y==+y);
   const tot=rows.reduce((s,r)=>s+r.T,0);
-  for(let b=1;b<=4;b++){
+  for(let b=1;b<=5;b++){
     const el=document.getElementById('block-b-pct-'+b);const el2=document.getElementById('block-b-votes-'+b);
     if(!el)continue;const v=sumB(rows,blocksB[b]||[]);
     el.textContent=tot?(v/tot*100).toFixed(1)+'%':'0%';el2.textContent=fmt(v)+' votos';
@@ -533,7 +540,7 @@ function updBStats(){
 const rebuildPools=()=>{rebuildPoolA();rebuildPoolB();};
 
 // DRAG-DROP A zones
-['zone-1','zone-2','zone-3'].forEach(id=>{
+['zone-1','zone-2','zone-3','zone-4','zone-5'].forEach(id=>{
   const z=document.getElementById(id);
   z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('dragover');});
   z.addEventListener('dragleave',()=>z.classList.remove('dragover'));
@@ -549,7 +556,7 @@ const rebuildPools=()=>{rebuildPoolA();rebuildPoolB();};
 });
 
 // DRAG-DROP B zones (4)
-['zone-b-1','zone-b-2','zone-b-3','zone-b-4'].forEach(id=>{
+['zone-b-1','zone-b-2','zone-b-3','zone-b-4','zone-b-5'].forEach(id=>{
   const z=document.getElementById(id);if(!z)return;
   z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('dragover');});
   z.addEventListener('dragleave',()=>z.classList.remove('dragover'));
@@ -567,27 +574,27 @@ const rebuildPools=()=>{rebuildPoolA();rebuildPoolB();};
 
 // PRESETS A
 function applyPreset(t){
-  if(t=='4t'){blocks={1:['MORENA','PT','PVEM','HAGAMOS','FUTURO'],2:['MC'],3:['PAN','PRI','PRD']};bNames={1:'4T/SHHJ',2:'MC',3:'Frente'};}
-  else{blocks={1:['MORENA'],2:['MC'],3:['PAN']};bNames={1:'MORENA',2:'MC',3:'PAN'};}
-  ['1','2','3'].forEach(b=>{document.getElementById('block-name-'+b).value=bNames[+b];});
+  if(t=='4t'){blocks={1:['MORENA','PT','PVEM','HAGAMOS','FUTURO'],2:['MC'],3:['PAN','PRI','PRD'],4:[],5:[]};bNames={1:'4T/SHHJ',2:'MC',3:'Frente',4:'',5:''};}
+  else{blocks={1:['MORENA'],2:['MC'],3:['PAN'],4:[],5:[]};bNames={1:'MORENA',2:'MC',3:'PAN',4:'',5:''};}
+  ['1','2','3','4','5'].forEach(b=>{document.getElementById('block-name-'+b).value=bNames[+b];});
   renderBlocksA();rebuildPoolA();refresh();
 }
-function clearBlocks(){blocks={1:[],2:[],3:[]};renderBlocksA();rebuildPoolA();refresh();}
+function clearBlocks(){blocks={1:[],2:[],3:[],4:[],5:[]};renderBlocksA();rebuildPoolA();refresh();}
 function applyPresetB(t){
   if(t=='default'){
-    blocksB={1:['MORENA','PT'],2:['MC','PVEM'],3:['PAN'],4:['PRI','PRD','HAGAMOS','FUTURO']};
-    bNamesB={1:'MORENA+PT',2:'MC+PVEM',3:'PAN',4:'PRI+PRD+HAG+FUT'};
+    blocksB={1:['MORENA','PT'],2:['MC','PVEM'],3:['PAN'],4:['PRI','PRD','HAGAMOS','FUTURO'],5:[]};
+    bNamesB={1:'MORENA+PT',2:'MC+PVEM',3:'PAN',4:'PRI+PRD+HAG+FUT',5:''};
   } else if(t=='4t'){
-    blocksB={1:['MORENA','PT','PVEM','HAGAMOS','FUTURO'],2:['MC'],3:['PAN','PRI','PRD'],4:[]};
-    bNamesB={1:'4T/SHHJ',2:'MC',3:'Frente',4:'(vacío)'};
+    blocksB={1:['MORENA','PT','PVEM','HAGAMOS','FUTURO'],2:['MC'],3:['PAN','PRI','PRD'],4:[],5:[]};
+    bNamesB={1:'4T/SHHJ',2:'MC',3:'Frente',4:'(vacío)',5:''};
   } else {
-    blocksB={1:['MORENA'],2:['MC'],3:['PAN'],4:[]};
-    bNamesB={1:'MORENA',2:'MC',3:'PAN',4:'(vacío)'};
+    blocksB={1:['MORENA'],2:['MC'],3:['PAN'],4:[],5:[]};
+    bNamesB={1:'MORENA',2:'MC',3:'PAN',4:'(vacío)',5:''};
   }
-  ['1','2','3','4'].forEach(b=>{const el=document.getElementById('block-b-name-'+b);if(el)el.value=bNamesB[+b];});
+  ['1','2','3','4','5'].forEach(b=>{const el=document.getElementById('block-b-name-'+b);if(el)el.value=bNamesB[+b];});
   renderBlocksB();rebuildPoolB();refresh();
 }
-function clearBlocksB(){blocksB={1:[],2:[],3:[],4:[]};renderBlocksB();rebuildPoolB();refresh();}
+function clearBlocksB(){blocksB={1:[],2:[],3:[],4:[],5:[]};renderBlocksB();rebuildPoolB();refresh();}
 
 // REFRESH
 function refresh(){
@@ -659,14 +666,14 @@ function updBlockKPIs(rows){
   const tot=rows.reduce((s,r)=>s+r.T,0);
   const kpi=document.getElementById('kpi-b-row');kpi.innerHTML='';
   let bh='',lh='';
-  const bv=[1,2,3].map(b=>sumB(rows,blocks[b]));
+  const bv=[1,2,3,4,5].map(b=>sumB(rows,blocks[b]||[]));
   const na=tot-bv.reduce((s,v)=>s+v,0);
   bv.forEach((v,i)=>{
     const b=i+1,p=tot?(v/tot*100).toFixed(1):0,nm=document.getElementById('block-name-'+b).value||'B'+b;
     const c=document.createElement('div');c.className='kpi-card';
     c.innerHTML=`<div class="kpi-label">${nm}</div><div class="kpi-val" style="color:${BC[i]}">${p}%</div><div class="kpi-sub">${fmt(v)} votos</div>`;
     kpi.appendChild(c);
-    bh+=`<div class="bar-seg b${b}" style="width:${tot?v/tot*100:0}%">${p}</div>`;
+    const bClass=b<=3?`b${b}`:b==4?'b4':'b5';const bStyle=b>=4?`;background:${BC[b-1]}`:'';bh+=`<div class="bar-seg ${bClass}" style="width:${tot?v/tot*100:0}%${bStyle}">${p}</div>`;
     lh+=`<div class="leg-item"><div class="leg-dot" style="background:${BC[i]}"></div>${nm}·${fmt(v)} (${p})</div>`;
     document.getElementById('block-pct-'+b).textContent=p+'%';
     document.getElementById('block-votes-'+b).textContent=fmt(v)+' votos';
@@ -810,8 +817,8 @@ function renderCompChart(){
   const getYR=y=>dist=='all'?D.filter(r=>r.y==y):D.filter(r=>r.y==y&&r.d==+dist);
 
   // Labels: bloques A (3) + bloques B (4) con separador visual
-  const labelsA=[1,2,3].map(b=>'A: '+(document.getElementById('block-name-'+b).value||'B'+b));
-  const labelsB=[1,2,3,4].map(b=>'B: '+(document.getElementById('block-b-name-'+b).value||'B'+b));
+  const labelsA=[1,2,3,4,5].map(b=>'A: '+(document.getElementById('block-name-'+b).value||'B'+b));
+  const labelsB=[1,2,3,4,5].map(b=>'B: '+(document.getElementById('block-b-name-'+b).value||'B'+b));
   const allLabels=[...labelsA,...labelsB];
 
   const solidColsA=['#e83030','#ff8c00','#2266cc'];
@@ -825,8 +832,8 @@ function renderCompChart(){
   const alphas=['ff','cc','88'];
   const datasets=yrs.map((y,i)=>{
     const yr=getYR(y);const tot=yr.reduce((s,r)=>s+r.T,0);
-    const aVals=[1,2,3].map(b=>tot?sumB(yr,blocks[b])/tot*100:0);
-    const bVals=[1,2,3,4].map(b=>tot?sumB(yr,blocksB[b]||[])/tot*100:0);
+    const aVals=[1,2,3,4,5].map(b=>tot?sumB(yr,blocks[b]||[])/tot*100:0);
+    const bVals=[1,2,3,4,5].map(b=>tot?sumB(yr,blocksB[b]||[])/tot*100:0);
     return{
       label:String(y),
       data:[...aVals,...bVals],
@@ -873,7 +880,7 @@ const sortState={a:{col:'dtto',dir:1}, b:{col:'dtto',dir:1}};
 // TABLE A (3 bloques, sortable)
 function renderTableA(){
   const prev=document.getElementById('scen-a-preview');prev.innerHTML='';
-  [1,2,3].forEach((b,i)=>{if(!blocks[b].length)return;
+  [1,2,3,4,5].forEach((b,i)=>{if(!(blocks[b]||[]).length)return;
     const nm=document.getElementById('block-name-'+b).value||'B'+b;const tag=document.createElement('span');
     tag.style.cssText=`padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;background:${BC[i]}22;border:1px solid ${BC[i]};color:${BC[i]}`;
     tag.textContent=nm+': '+blocks[b].map(p=>PL[p]||p).join('+');prev.appendChild(tag);
@@ -911,15 +918,15 @@ function renderTableA(){
     return `<th style="cursor:pointer;user-select:none;${active?'color:var(--gold)':''}" onclick="toggleSort('${side}','${col}')">${label} <span style="font-size:8px;opacity:.7">${arrow}</span></th>`;
   };
   headTr.innerHTML=mkTh('DTTO','dtto','a');
-  [1,2,3].forEach((b,i)=>{
-    const parties=blocks[b].map(p=>PL[p]||p).join('+');
+  [1,2,3,4,5].forEach((b,i)=>{
+    const parties=(blocks[b]||[]).map(p=>PL[p]||p).join('+');
     const label=parties||'(vacío)';
     headTr.innerHTML+=`<th style="color:${BC[i]};max-width:120px;white-space:normal;font-size:9px;line-height:1.3">${label}</th>`;
   });
   headTr.innerHTML+=mkTh('VENTAJA MORENA','ventaja','a')+'<th>GANADOR</th>';
 
   const tbody=document.querySelector('#scen-table-a tbody');tbody.innerHTML='';
-  let tots=[0,0,0],totVentaja=0;
+  let tots=[0,0,0,0,0],totVentaja=0;
   rowData.forEach(({d,tot,bv,mx,wi,ventaja,ventajaPct})=>{
     bv.forEach((v,i)=>tots[i]+=v); totVentaja+=ventaja;
     const tr=document.createElement('tr');
@@ -940,11 +947,11 @@ function renderTableA(){
   const tvColA=totVentaja>=0?'var(--green)':'var(--red)';
   c+=`<td style="color:${tvColA}">${totVentaja>=0?'+':''}${fmt(totVentaja)}</td>`;
   const wi=tots.indexOf(Math.max(...tots));
-  c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${document.getElementById('block-name-'+(wi+1)).value||'B'+(wi+1)}</td>`;
+  c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${(blocks[wi+1]||[]).map(p=>PL[p]||p).join('+')||'B'+(wi+1)}</td>`;
   tr.innerHTML=c;tbody.appendChild(tr);
 }
 
-// TABLE B (4 bloques, sortable)
+// TABLE B (5 bloques, sortable)
 function renderTableB(){
   const y=getY();const rows=y=='all'?D:D.filter(r=>r.y==+y);
   const ds=dList(y=='all'?null:+y);
@@ -952,9 +959,9 @@ function renderTableB(){
   // Build data rows — ventaja del bloque con MORENA vs segundo bloque
   let rowData=ds.map(d=>{
     const dr=rows.filter(r=>r.d==d);const tot=dr.reduce((s,r)=>s+r.T,0);
-    const bv=[1,2,3,4].map(b=>sumB(dr,blocksB[b]||[]));
+    const bv=[1,2,3,4,5].map(b=>sumB(dr,blocksB[b]||[]));
     const mx=Math.max(...bv),wi=bv.indexOf(mx);
-    const morenaBlk=[1,2,3,4].findIndex(b=>(blocksB[b]||[]).includes('MORENA'));
+    const morenaBlk=[1,2,3,4,5].findIndex(b=>(blocksB[b]||[]).includes('MORENA'));
     const morenaV=morenaBlk>=0?bv[morenaBlk]:0;
     const othersV=bv.filter((_,i)=>i!==morenaBlk);
     const maxOther=othersV.length?Math.max(...othersV):0;
@@ -977,7 +984,7 @@ function renderTableB(){
     return `<th style="cursor:pointer;user-select:none;${active?'color:var(--gold)':''}" onclick="toggleSort('${side}','${col}')">${label} <span style="font-size:8px;opacity:.7">${arrow}</span></th>`;
   };
   headTr.innerHTML=mkTh('DTTO','dtto','b');
-  [1,2,3,4].forEach((b,i)=>{
+  [1,2,3,4,5].forEach((b,i)=>{
     const parties=(blocksB[b]||[]).map(p=>PL[p]||p).join('+');
     const label=parties||'(vacío)';
     headTr.innerHTML+=`<th style="color:${BC4[i]};max-width:120px;white-space:normal;font-size:9px;line-height:1.3">${label}</th>`;
@@ -985,7 +992,7 @@ function renderTableB(){
   headTr.innerHTML+=mkTh('VENTAJA MORENA','ventaja','b')+'<th>GANADOR</th>';
 
   const tbody=document.querySelector('#scen-table-b tbody');tbody.innerHTML='';
-  let tots=[0,0,0,0],totVentaja=0;
+  let tots=[0,0,0,0,0],totVentaja=0;
   rowData.forEach(({d,tot,bv,mx,wi,ventaja,ventajaPct})=>{
     bv.forEach((v,i)=>tots[i]+=v); totVentaja+=ventaja;
     const tr=document.createElement('tr');
@@ -1006,7 +1013,7 @@ function renderTableB(){
   const tvColB=totVentaja>=0?'var(--green)':'var(--red)';
   c+=`<td style="color:${tvColB}">${totVentaja>=0?'+':''}${fmt(totVentaja)}</td>`;
   const wi=tots.indexOf(Math.max(...tots));
-  c+=`<td style="color:${BC4[wi]};font-weight:800">✅ ${document.getElementById('block-b-name-'+(wi+1)).value||'B'+(wi+1)}</td>`;
+  c+=`<td style="color:${BC4[wi]};font-weight:800">✅ ${(blocksB[wi+1]||[]).map(p=>PL[p]||p).join('+')||'B'+(wi+1)}</td>`;
   tr.innerHTML=c;tbody.appendChild(tr);
 }
 
@@ -1024,18 +1031,18 @@ function toggleMerge(){
   if(mergeVisible)renderMerged();
 }
 function renderMerged(){
-  [1,2,3].forEach(b=>{const h=document.getElementById('mha'+b);if(h)h.textContent=blocks[b].map(p=>PL[p]||p).join('+')||'(vacío)';});
-  [1,2,3,4].forEach(b=>{const h=document.getElementById('mhb'+b);if(h)h.textContent=(blocksB[b]||[]).map(p=>PL[p]||p).join('+')||'(vacío)';});
+  [1,2,3,4,5].forEach(b=>{const h=document.getElementById('mha'+b);if(h)h.textContent=(blocks[b]||[]).map(p=>PL[p]||p).join('+')||'(vacío)';});
+  [1,2,3,4,5].forEach(b=>{const h=document.getElementById('mhb'+b);if(h)h.textContent=(blocksB[b]||[]).map(p=>PL[p]||p).join('+')||'(vacío)';});
   const y=getY();const rows=y=='all'?D:D.filter(r=>r.y==+y);
   const ds=dList(y=='all'?null:+y);
   const tbody=document.querySelector('#merged-table tbody');tbody.innerHTML='';
   let same=0,diff=0;
   ds.forEach(d=>{
     const dr=rows.filter(r=>r.d==d);const tot=dr.reduce((s,r)=>s+r.T,0);
-    const av=[1,2,3].map(b=>sumB(dr,blocks[b]));
-    const bv=[1,2,3,4].map(b=>sumB(dr,blocksB[b]||[]));
+    const av=[1,2,3,4,5].map(b=>sumB(dr,blocks[b]||[]));
+    const bv=[1,2,3,4,5].map(b=>sumB(dr,blocksB[b]||[]));
     const wA=av.indexOf(Math.max(...av)),wB=bv.indexOf(Math.max(...bv));
-    const nmA=blocks[wA+1].map(p=>PL[p]||p).join('+')||'A'+(wA+1);
+    const nmA=(blocks[wA+1]||[]).map(p=>PL[p]||p).join('+')||'A'+(wA+1);
     const nmB=(blocksB[wB+1]||[]).map(p=>PL[p]||p).join('+')||'B'+(wB+1);
     const ok=(wA===wB);if(ok)same++;else diff++;
     const tr=document.createElement('tr');let c=`<td>${String(d).padStart(2,'0')}</td>`;
@@ -1047,7 +1054,7 @@ function renderMerged(){
     tr.innerHTML=c;tbody.appendChild(tr);
   });
   const tr=document.createElement('tr');tr.style.background='rgba(255,177,59,0.05)';
-  tr.innerHTML=`<td colspan="11" style="font-weight:700;color:var(--gold);text-align:center;padding:8px">Mismo ganador: <span style="color:var(--green)">${same}</span> distritos · Ganador diferente: <span style="color:var(--red)">${diff}</span> distritos</td>`;
+  tr.innerHTML=`<td colspan="13" style="font-weight:700;color:var(--gold);text-align:center;padding:8px">Mismo ganador: <span style="color:var(--green)">${same}</span> distritos · Ganador diferente: <span style="color:var(--red)">${diff}</span> distritos</td>`;
   tbody.appendChild(tr);
 }
 
@@ -1104,10 +1111,10 @@ function renderDiputados(){
     tr.innerHTML=c;tbody.appendChild(tr);
   }
 }
-['1','2','3'].forEach(b=>{
+['1','2','3','4','5'].forEach(b=>{
   document.getElementById('block-name-'+b).addEventListener('input',()=>{bNames[+b]=document.getElementById('block-name-'+b).value;refresh();renderCompChart();});
 });
-['1','2','3','4'].forEach(b=>{
+['1','2','3','4','5'].forEach(b=>{
   const el=document.getElementById('block-b-name-'+b);
   if(el)el.addEventListener('input',()=>{bNamesB[+b]=el.value;refresh();renderCompChart();});
 });
