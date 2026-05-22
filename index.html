@@ -41,13 +41,13 @@ body {
 .bb-sub{font-size:10px;color:var(--text-sec);margin-bottom:12px;}
 .parties-pool{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:rgba(5,8,16,0.5);border:1px dashed rgba(140,180,240,0.2);border-radius:6px;margin-bottom:12px;min-height:46px;}
 .pool-label{width:100%;font-size:9px;color:var(--text-tri);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
-.party-chip{padding:5px 10px;background:rgba(5,8,16,0.7);border:1px solid var(--text-tri);color:var(--text-pri);border-radius:4px;font-size:11px;font-weight:700;cursor:grab;transition:all .15s;user-select:none;display:inline-flex;align-items:center;gap:6px;}
+.party-chip{padding:3px 7px;background:rgba(5,8,16,0.7);border:1px solid var(--text-tri);color:var(--text-pri);border-radius:4px;font-size:10px;font-weight:700;cursor:grab;transition:all .15s;user-select:none;display:inline-flex;align-items:center;gap:4px;}
 .party-chip:hover{transform:scale(1.05);}
 .party-chip.drag{opacity:.4;}
 .party-chip .chip-remove{font-size:10px;cursor:pointer;color:var(--text-sec);}
 .party-chip .chip-remove:hover{color:var(--red);}
 .blocks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.block-zone{border-radius:6px;padding:10px;min-height:80px;border:2px dashed transparent;transition:all .15s;}
+.block-zone{border-radius:6px;padding:8px;min-height:70px;border:2px dashed transparent;transition:all .15s;overflow:hidden;}
 .block-zone.b1{background:rgba(232,48,48,0.08);border-color:rgba(232,48,48,0.4);}
 .block-zone.b2{background:rgba(255,140,0,0.08);border-color:rgba(255,140,0,0.4);}
 .block-zone.b3{background:rgba(34,102,204,0.08);border-color:rgba(34,102,204,0.4);}
@@ -69,12 +69,12 @@ body {
 .party-indiv-card .p-pct{font-size:22px;font-weight:800;line-height:1;}
 .party-indiv-card .p-votes{font-size:10px;color:var(--text-sec);margin-top:4px;}
 .party-indiv-card .p-bar{height:3px;border-radius:2px;margin-top:8px;}
-.block-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.block-name{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700;flex:1;background:transparent;border:none;font-family:inherit;outline:none;border-bottom:1px dotted transparent;padding:2px 4px;cursor:text;}
+.block-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:2px;}
+.block-name{font-size:8px;letter-spacing:.5px;text-transform:uppercase;font-weight:700;flex:1;background:transparent;border:none;font-family:inherit;outline:none;border-bottom:1px dotted transparent;padding:1px 2px;cursor:text;min-width:0;}
 .block-name:hover,.block-name:focus{border-bottom-color:currentColor;}
 .b1 .block-name{color:var(--b1);}.b2 .block-name{color:var(--b2);}.b3 .block-name{color:var(--b3);}
 .block-stats{font-size:9px;color:var(--text-sec);text-align:right;}
-.block-pct{font-size:14px;font-weight:800;}
+.block-pct{font-size:12px;font-weight:800;}
 .b1 .block-pct{color:var(--b1);}.b2 .block-pct{color:var(--b2);}.b3 .block-pct{color:var(--b3);}
 .bb-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
 .bb-btn{padding:6px 12px;background:rgba(0,240,255,0.08);color:var(--cyan);border:1px solid rgba(0,240,255,0.3);border-radius:5px;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;letter-spacing:.5px;}
@@ -182,7 +182,7 @@ body {
   <div class="bb-title">▶ Constructor de Bloques Principal · También define Tabla A</div>
   <div class="bb-sub">Arrastra los partidos. Afecta KPIs, gráfica histórica y la Tabla A de escenarios.</div>
   <div class="parties-pool" id="pool-a"><span class="pool-label">Partidos sin asignar</span></div>
-  <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;">
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;min-width:0;">
     <div class="block-zone b1" id="zone-1" data-zone="1"><div class="block-header"><input class="block-name" id="block-name-1" value="BLOQUE 1"><div class="block-stats"><div class="block-pct" id="block-pct-1">0%</div><div id="block-votes-1" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
     <div class="block-zone b2" id="zone-2" data-zone="2"><div class="block-header"><input class="block-name" id="block-name-2" value="BLOQUE 2"><div class="block-stats"><div class="block-pct" id="block-pct-2">0%</div><div id="block-votes-2" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
     <div class="block-zone b3" id="zone-3" data-zone="3"><div class="block-header"><input class="block-name" id="block-name-3" value="BLOQUE 3"><div class="block-stats"><div class="block-pct" id="block-pct-3">0%</div><div id="block-votes-3" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
@@ -240,7 +240,7 @@ body {
       <div class="mini-builder">
         <div class="mini-builder-title">Constructor de Bloques · Independiente · 5 bloques</div>
         <div class="parties-pool" id="pool-b" style="min-height:36px;margin-bottom:8px;"><span class="pool-label">Partidos sin asignar</span></div>
-        <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;" id="blocks-b-grid">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;min-width:0;" id="blocks-b-grid">
           <div class="block-zone b1" id="zone-b-1" data-zone="b1"><div class="block-header"><input class="block-name" id="block-b-name-1" value="BLOQUE B1"><div class="block-stats"><div class="block-pct" id="block-b-pct-1">0%</div><div id="block-b-votes-1" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
           <div class="block-zone b2" id="zone-b-2" data-zone="b2"><div class="block-header"><input class="block-name" id="block-b-name-2" value="BLOQUE B2"><div class="block-stats"><div class="block-pct" id="block-b-pct-2">0%</div><div id="block-b-votes-2" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
           <div class="block-zone b3" id="zone-b-3" data-zone="b3"><div class="block-header"><input class="block-name" id="block-b-name-3" value="BLOQUE B3"><div class="block-stats"><div class="block-pct" id="block-b-pct-3">0%</div><div id="block-b-votes-3" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
