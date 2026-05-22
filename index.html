@@ -2,154 +2,194 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Dashboard Electoral · Diputados Locales Jalisco</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
- --border:rgba(140,180,240,0.12);
- --text-pri:#e8f0ff; --text-sec:#8fa3c7; --text-tri:#5a6b8a;
- --gold:#ffb13b; --green:#2dffaa; --red:#ff2d4f; --cyan:#00f0ff; --purple:#b14eff;
- --b1:#e83030; --b2:#ff8c00; --b3:#2266cc;
+/* ── RESET & TOKENS ─────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg0:#050810;--bg1:#0a0e1a;--bg2:#0f1525;--bg3:#141c2f;
+  --border:rgba(140,180,240,0.12);--border-focus:rgba(0,240,255,0.4);
+  --text0:#e8f0ff;--text1:#8fa3c7;--text2:#5a6b8a;
+  --gold:#ffb13b;--green:#2dffaa;--red:#ff2d4f;--cyan:#00f0ff;--purple:#b14eff;
+  --c1:#e83030;--c2:#ff8c00;--c3:#2266cc;--c4:#00b496;--c5:#ff50b4;
+  --r:8px;--gap:12px;
 }
-body {
- font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
- background:linear-gradient(180deg,#050810 0%,#0a0e1a 50%,#050810 100%);
- background-attachment:fixed; color:var(--text-pri); min-height:100vh; padding:14px; font-size:13px;
- overflow-x:hidden;
+html{font-size:14px;-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg0);color:var(--text0);
+  min-height:100vh;overflow-x:hidden;line-height:1.4;
 }
-.container{max-width:1400px;margin:0 auto;overflow-x:hidden;}
-.header{background:linear-gradient(135deg,rgba(0,240,255,0.06),rgba(255,177,59,0.04));border:1px solid rgba(0,240,255,0.2);border-radius:10px;padding:16px 20px;margin-bottom:14px;position:relative;overflow:hidden;}
-.header::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan) 0%,var(--gold) 50%,var(--cyan) 100%);animation:scan 4s linear infinite;}
+
+/* ── LAYOUT ─────────────────────────────────────────── */
+.app{max-width:1440px;margin:0 auto;padding:clamp(8px,2vw,16px);display:flex;flex-direction:column;gap:var(--gap)}
+
+/* ── SURFACE ────────────────────────────────────────── */
+.card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:clamp(10px,2vw,16px);overflow:hidden}
+.card--accent{background:linear-gradient(135deg,rgba(0,240,255,0.04),rgba(177,78,255,0.04));border-color:rgba(177,78,255,0.25)}
+.card--gold{background:linear-gradient(135deg,rgba(255,177,59,0.06),rgba(0,240,255,0.03));border-color:rgba(255,177,59,0.25)}
+.card-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+.card-sub{font-size:10px;color:var(--text2);margin-top:2px}
+
+/* ── HEADER ─────────────────────────────────────────── */
+.hdr{background:linear-gradient(135deg,rgba(0,240,255,0.06),rgba(255,177,59,0.04));border:1px solid rgba(0,240,255,0.2);border-radius:var(--r);padding:14px 18px;position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hdr::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--gold),var(--cyan));animation:scan 4s linear infinite}
 @keyframes scan{0%,100%{opacity:.4}50%{opacity:1}}
-.header-row{display:flex;align-items:center;gap:12px;}
-.header-icon{font-size:28px;filter:drop-shadow(0 0 12px var(--cyan));}
-.header-title{font-size:18px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);}
-.header-sub{font-size:11px;color:var(--text-sec);margin-top:2px;}
-.gf-panel{background:linear-gradient(135deg,rgba(255,177,59,0.08),rgba(0,240,255,0.04));border:1px solid rgba(255,177,59,0.3);border-radius:8px;padding:12px 16px;margin-bottom:14px;}
-.gf-title{font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
-.gf-row{display:flex;gap:10px;align-items:end;flex-wrap:wrap;}
-.gf-block{flex:1;min-width:180px;}
-.gf-block label{font-size:9px;color:var(--text-tri);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;}
-.gf-block select{width:100%;padding:8px 10px;background:rgba(5,8,16,0.8);border:1px solid rgba(255,177,59,0.3);border-radius:5px;color:var(--text-pri);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;}
-.gf-block select:focus{outline:none;border-color:var(--gold);}
-.panel{background:linear-gradient(180deg,rgba(15,21,37,0.85),rgba(10,14,26,0.9));border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:14px;}
-.panel-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
-.panel-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);}
-.panel-sub{font-size:9px;color:var(--text-tri);letter-spacing:.5px;}
-.block-builder{background:linear-gradient(135deg,rgba(177,78,255,0.08),rgba(0,240,255,0.04));border:1px solid rgba(177,78,255,0.3);border-radius:8px;padding:14px 16px;margin-bottom:14px;}
-.bb-title{font-size:11px;color:var(--purple);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:4px;}
-.bb-sub{font-size:10px;color:var(--text-sec);margin-bottom:12px;}
-.parties-pool{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:rgba(5,8,16,0.5);border:1px dashed rgba(140,180,240,0.2);border-radius:6px;margin-bottom:12px;min-height:46px;}
-.pool-label{width:100%;font-size:9px;color:var(--text-tri);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
-.party-chip{padding:3px 7px;background:rgba(5,8,16,0.7);border:1px solid var(--text-tri);color:var(--text-pri);border-radius:4px;font-size:10px;font-weight:700;cursor:grab;transition:all .15s;user-select:none;display:inline-flex;align-items:center;gap:4px;}
-.party-chip:hover{transform:scale(1.05);}
-.party-chip.drag{opacity:.4;}
-.party-chip .chip-remove{font-size:10px;cursor:pointer;color:var(--text-sec);}
-.party-chip .chip-remove:hover{color:var(--red);}
-.blocks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.block-zone{border-radius:6px;padding:8px;min-height:70px;border:2px dashed transparent;transition:all .15s;overflow:hidden;}
-.block-zone.b1{background:rgba(232,48,48,0.08);border-color:rgba(232,48,48,0.4);}
-.block-zone.b2{background:rgba(255,140,0,0.08);border-color:rgba(255,140,0,0.4);}
-.block-zone.b3{background:rgba(34,102,204,0.08);border-color:rgba(34,102,204,0.4);}
-.block-zone.dragover{border-style:solid;transform:scale(1.02);}
-.block-zone.b1.dragover{background:rgba(232,48,48,0.15);}
-.block-zone.b2.dragover{background:rgba(255,140,0,0.15);}
-.mini-builder{background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.15);border-radius:6px;padding:10px;margin-bottom:10px;}
-.mini-builder-title{font-size:9px;color:var(--cyan);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
-.block-zone.b4.dragover{background:rgba(0,180,150,0.15);}
-.b4 .block-name{color:#00b496;}
-.b4 .block-pct{color:#00b496;}
-.block-zone.b5{background:rgba(255,80,180,0.08);border-color:rgba(255,80,180,0.4);}
-.block-zone.b5.dragover{background:rgba(255,80,180,0.15);}
-.b5 .block-name{color:#ff50b4;}
-.b5 .block-pct{color:#ff50b4;}
-.party-indiv-card{flex:1;min-width:130px;max-width:200px;padding:12px 14px;background:rgba(5,8,16,0.7);border-radius:6px;border:2px solid transparent;position:relative;overflow:hidden;}
-.party-indiv-card .rank{position:absolute;top:8px;right:10px;font-size:9px;color:var(--text-tri);font-weight:700;}
-.party-indiv-card .p-name{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
-.party-indiv-card .p-pct{font-size:22px;font-weight:800;line-height:1;}
-.party-indiv-card .p-votes{font-size:10px;color:var(--text-sec);margin-top:4px;}
-.party-indiv-card .p-bar{height:3px;border-radius:2px;margin-top:8px;}
-.block-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:2px;}
-.block-name{font-size:8px;letter-spacing:.5px;text-transform:uppercase;font-weight:700;flex:1;background:transparent;border:none;font-family:inherit;outline:none;border-bottom:1px dotted transparent;padding:1px 2px;cursor:text;min-width:0;}
-.block-name:hover,.block-name:focus{border-bottom-color:currentColor;}
-.b1 .block-name{color:var(--b1);}.b2 .block-name{color:var(--b2);}.b3 .block-name{color:var(--b3);}
-.block-stats{font-size:9px;color:var(--text-sec);text-align:right;}
-.block-pct{font-size:12px;font-weight:800;}
-.b1 .block-pct{color:var(--b1);}.b2 .block-pct{color:var(--b2);}.b3 .block-pct{color:var(--b3);}
-.bb-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
-.bb-btn{padding:6px 12px;background:rgba(0,240,255,0.08);color:var(--cyan);border:1px solid rgba(0,240,255,0.3);border-radius:5px;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;letter-spacing:.5px;}
-.bb-btn:hover{background:rgba(0,240,255,0.15);}
-.bb-btn.preset{background:rgba(255,177,59,0.08);color:var(--gold);border-color:rgba(255,177,59,0.3);}
-.bb-btn.preset:hover{background:rgba(255,177,59,0.15);}
-.hist-toggle{display:flex;gap:8px;margin-bottom:10px;}
-.hist-btn{padding:5px 12px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;letter-spacing:.5px;border:1px solid rgba(255,177,59,.4);background:rgba(255,177,59,.05);color:var(--gold);transition:all .15s;}
-.hist-btn.active{background:rgba(255,177,59,.2);}
-.kpi-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
-.kpi-card{flex:1;min-width:110px;padding:10px 12px;background:rgba(5,8,16,.7);border-radius:6px;border:1px solid var(--border);text-align:center;}
-.kpi-label{font-size:9px;color:var(--text-tri);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
-.kpi-val{font-size:18px;font-weight:800;}
-.kpi-sub{font-size:10px;color:var(--text-sec);margin-top:2px;}
-.blocks-bar-wrap{margin-bottom:10px;}
-.blocks-bar{height:28px;border-radius:5px;display:flex;overflow:hidden;margin-bottom:4px;border:1px solid var(--border);}
-.bar-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;transition:width .5s ease;white-space:nowrap;overflow:hidden;}
-.bar-seg.b1{background:var(--b1);}.bar-seg.b2{background:var(--b2);color:#111;}.bar-seg.b3{background:var(--b3);}.bar-seg.bn{background:#2a3350;color:var(--text-sec);}
-.blocks-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;}
-.leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text-sec);}
-.leg-dot{width:10px;height:10px;border-radius:2px;}
-.chart-wrap{position:relative;width:100%;height:260px;}
-.scenarios-container{display:grid;grid-template-columns:1fr 1fr;gap:14px;min-width:0;}
-@media(max-width:900px){.scenarios-container,.blocks-grid{grid-template-columns:1fr;}}
-.scen-card{background:rgba(15,21,37,0.7);border:1px solid var(--border);border-radius:8px;padding:12px;min-width:0;overflow:hidden;}
-.scen-card-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.scen-name{background:transparent;border:none;border-bottom:1px dotted;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;outline:none;flex:1;min-width:0;}
-.scen-table{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed;}
-.scen-table th{background:rgba(5,8,16,0.6);color:var(--text-tri);font-size:9px;letter-spacing:.5px;text-transform:uppercase;padding:4px 5px;text-align:left;border-bottom:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;}
-.scen-table td{padding:4px 5px;border-bottom:1px solid rgba(140,180,240,0.06);font-variant-numeric:tabular-nums;vertical-align:middle;font-size:11px;}
-.scen-table tr:last-child td{background:rgba(255,177,59,0.05);font-weight:700;}
-.scen-table tr:hover td{background:rgba(0,240,255,0.03);}
-.scen-table .win{font-weight:800;}
-.party-indiv-card{
- flex:1;min-width:130px;max-width:200px;padding:12px 14px;
- background:rgba(5,8,16,0.7);border-radius:6px;border:2px solid transparent;
- position:relative;overflow:hidden;
+.hdr-icon{font-size:26px;flex-shrink:0}
+.hdr-text h1{font-size:clamp(13px,2.5vw,18px);font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+.hdr-text p{font-size:11px;color:var(--text1);margin-top:2px}
+.hdr-btn{margin-left:auto;padding:6px 14px;background:rgba(0,240,255,0.08);color:var(--cyan);border:1px solid rgba(0,240,255,0.3);border-radius:5px;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap}
+.hdr-btn:hover{background:rgba(0,240,255,0.15)}
+
+/* ── FILTERS ────────────────────────────────────────── */
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.filter-group{flex:1;min-width:160px}
+.filter-group label{display:block;font-size:9px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.filter-group select{width:100%;padding:8px 10px;background:rgba(5,8,16,0.8);border:1px solid rgba(255,177,59,0.3);border-radius:5px;color:var(--text0);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238fa3c7' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.filter-group select:focus{outline:none;border-color:var(--gold)}
+
+/* ── PARTY CARDS ────────────────────────────────────── */
+.party-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.pcard{background:var(--bg2);border:2px solid transparent;border-radius:var(--r);padding:10px 12px;position:relative;overflow:hidden;cursor:pointer}
+.pcard:hover{border-color:rgba(255,255,255,0.1)}
+.pcard-rank{position:absolute;top:6px;right:8px;font-size:9px;color:var(--text2);font-weight:700}
+.pcard-name{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
+.pcard-pct{font-size:20px;font-weight:800;line-height:1}
+.pcard-votes{font-size:10px;color:var(--text1);margin-top:3px}
+.pcard-bar{height:3px;border-radius:2px;margin-top:8px}
+
+/* ── BLOCK BUILDER ──────────────────────────────────── */
+.builder{border:1px solid rgba(177,78,255,0.3);background:linear-gradient(135deg,rgba(177,78,255,0.05),rgba(0,240,255,0.03));border-radius:var(--r);padding:clamp(10px,2vw,14px)}
+.builder-title{font-size:10px;color:var(--purple);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:4px}
+.builder-sub{font-size:10px;color:var(--text1);margin-bottom:10px}
+.pool{display:flex;flex-wrap:wrap;gap:5px;padding:8px;background:rgba(5,8,16,0.5);border:1px dashed rgba(140,180,240,0.2);border-radius:5px;margin-bottom:10px;min-height:40px}
+.pool-lbl{width:100%;font-size:9px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+
+/* ── CHIPS ──────────────────────────────────────────── */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;cursor:grab;user-select:none;transition:transform .1s;border:1px solid transparent;background:rgba(5,8,16,0.7)}
+.chip:hover{transform:scale(1.05)}
+.chip.dragging{opacity:.4;cursor:grabbing}
+.chip-rm{cursor:pointer;opacity:.6;font-size:10px;padding:0 2px}
+.chip-rm:hover{opacity:1;color:var(--red)}
+
+/* ── BLOCK ZONES ────────────────────────────────────── */
+.zones{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+@media(max-width:700px){.zones{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:450px){.zones{grid-template-columns:repeat(2,1fr)}}
+.zone{border-radius:6px;padding:8px;min-height:72px;border:2px dashed;transition:all .15s;overflow:visible}
+.zone.over{transform:scale(1.03)}
+.zone[data-i="1"]{background:rgba(232,48,48,0.08);border-color:rgba(232,48,48,0.35)}
+.zone[data-i="2"]{background:rgba(255,140,0,0.08);border-color:rgba(255,140,0,0.35)}
+.zone[data-i="3"]{background:rgba(34,102,204,0.08);border-color:rgba(34,102,204,0.35)}
+.zone[data-i="4"]{background:rgba(0,180,150,0.08);border-color:rgba(0,180,150,0.35)}
+.zone[data-i="5"]{background:rgba(255,80,180,0.08);border-color:rgba(255,80,180,0.35)}
+.zone.over[data-i="1"]{background:rgba(232,48,48,0.18)}
+.zone.over[data-i="2"]{background:rgba(255,140,0,0.18)}
+.zone.over[data-i="3"]{background:rgba(34,102,204,0.18)}
+.zone.over[data-i="4"]{background:rgba(0,180,150,0.18)}
+.zone.over[data-i="5"]{background:rgba(255,80,180,0.18)}
+.zone-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;gap:4px}
+.zone-name{font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.zone-stats{text-align:right;flex-shrink:0}
+.zone-pct{font-size:12px;font-weight:800}
+.zone-votes{font-size:9px;color:var(--text1)}
+.zone-chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.bb-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.btn{padding:5px 11px;border-radius:5px;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;letter-spacing:.4px;transition:all .12s;border:1px solid}
+.btn-cyan{background:rgba(0,240,255,0.07);color:var(--cyan);border-color:rgba(0,240,255,0.3)}
+.btn-cyan:hover{background:rgba(0,240,255,0.14)}
+.btn-gold{background:rgba(255,177,59,0.07);color:var(--gold);border-color:rgba(255,177,59,0.3)}
+.btn-gold:hover{background:rgba(255,177,59,0.14)}
+.btn-purple{background:rgba(177,78,255,0.1);color:var(--purple);border-color:rgba(177,78,255,0.3);border-radius:20px;padding:7px 20px}
+.btn-purple:hover{background:rgba(177,78,255,0.2)}
+
+/* ── KPI ROW ────────────────────────────────────────── */
+.kpi-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.kpi{flex:1;min-width:100px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;text-align:center}
+.kpi-lbl{font-size:9px;color:var(--text2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kpi-val{font-size:17px;font-weight:800}
+.kpi-sub{font-size:10px;color:var(--text1);margin-top:2px}
+
+/* ── DIST BAR ───────────────────────────────────────── */
+.dist-bar{height:26px;border-radius:4px;display:flex;overflow:hidden;border:1px solid var(--border);margin-bottom:4px}
+.dist-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;overflow:hidden;white-space:nowrap;transition:width .4s ease;color:#fff;min-width:0}
+.dist-legend{display:flex;gap:10px;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text1)}
+.leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+
+/* ── CHART ──────────────────────────────────────────── */
+.chart-wrap{position:relative;width:100%;height:clamp(220px,30vw,300px)}
+.hist-toggle{display:flex;gap:6px}
+.htbtn{padding:5px 11px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;border:1px solid rgba(255,177,59,.4);background:rgba(255,177,59,.04);color:var(--gold)}
+.htbtn.on{background:rgba(255,177,59,.2)}
+
+/* ── TABLE SYSTEM ───────────────────────────────────── */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-size:11px;table-layout:auto}
+.tbl th{background:var(--bg2);color:var(--text2);font-size:9px;letter-spacing:.5px;text-transform:uppercase;padding:5px 6px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;cursor:default}
+.tbl th.sortable{cursor:pointer}
+.tbl th.sortable:hover{color:var(--text0)}
+.tbl td{padding:5px 6px;border-bottom:1px solid rgba(140,180,240,0.05);font-variant-numeric:tabular-nums;vertical-align:middle;white-space:nowrap}
+.tbl tr.total-row td{background:rgba(255,177,59,0.05);font-weight:700}
+.tbl tr.clickable{cursor:pointer}
+.tbl tr.clickable:hover td{background:rgba(0,240,255,0.04)}
+.tbl tr.active-dist td{background:rgba(255,177,59,0.06)}
+.tbl .win{font-weight:800}
+.tbl .pos{color:var(--green)}
+.tbl .neg{color:var(--red)}
+
+/* ── SCENARIOS ──────────────────────────────────────── */
+.scen-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+@media(max-width:860px){
+  .scen-grid{grid-template-columns:1fr}
 }
-.party-indiv-card .rank{
- position:absolute;top:8px;right:10px;font-size:9px;color:var(--text-tri);font-weight:700;
+.scen-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px;min-width:0}
+.scen-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.scen-preview{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;min-height:22px}
+.preview-tag{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700}
+
+/* ── MERGED TABLE ───────────────────────────────────── */
+.merged-panel{margin-top:12px;padding:12px;background:rgba(177,78,255,0.04);border:1px solid rgba(177,78,255,0.25);border-radius:var(--r);display:none}
+.merged-panel.show{display:block}
+.merged-title{font-size:10px;color:var(--purple);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+
+/* ── DIPUTADOS ──────────────────────────────────────── */
+.dip-cell{display:flex;align-items:center;gap:5px}
+.dip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* ── MOBILE TABS for scenarios ──────────────────────── */
+.tab-bar{display:none;gap:4px;margin-bottom:10px}
+@media(max-width:860px){
+  .tab-bar{display:flex}
 }
-.party-indiv-card .p-name{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
-.party-indiv-card .p-pct{font-size:22px;font-weight:800;line-height:1;}
-.party-indiv-card .p-votes{font-size:10px;color:var(--text-sec);margin-top:4px;}
-.party-indiv-card .p-bar{height:3px;border-radius:2px;margin-top:8px;}
-.sep-btn-row{display:flex;justify-content:center;margin:12px 0;}
-.sep-btn{padding:8px 24px;background:rgba(177,78,255,0.1);color:var(--purple);border:1px solid rgba(177,78,255,0.4);border-radius:20px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:1px;transition:all .2s;}
-.sep-btn:hover{background:rgba(177,78,255,0.2);}
-.merged-result{margin-top:14px;padding:14px;background:rgba(177,78,255,0.06);border:1px solid rgba(177,78,255,0.3);border-radius:8px;display:none;overflow-x:auto;}
-.merged-result.show{display:block;}
-.merged-title{font-size:11px;color:var(--purple);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
-.merged-table{width:100%;border-collapse:collapse;font-size:10px;}
-.merged-table th{background:rgba(177,78,255,0.1);color:var(--purple);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:5px 7px;text-align:left;border-bottom:1px solid rgba(177,78,255,0.2);}
-.merged-table td{padding:5px 7px;border-bottom:1px solid rgba(140,180,240,0.06);font-variant-numeric:tabular-nums;vertical-align:middle;}
-.merged-table .win{font-weight:800;}
+.tab{padding:6px 14px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:700;border:1px solid var(--border);background:transparent;color:var(--text1)}
+.tab.on{background:rgba(0,240,255,0.1);border-color:var(--cyan);color:var(--cyan)}
+
+/* ── SCROLLBAR ──────────────────────────────────────── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(140,180,240,0.2);border-radius:3px}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="app">
 
-<div class="header">
-  <div class="header-row">
-    <span class="header-icon">🗳️</span>
-    <div>
-      <div class="header-title">Dashboard Electoral · Diputados Locales Jalisco</div>
-      <div class="header-sub">2018 · 2021 · 2024 · Constructor de Bloques · Escenarios de Alianza</div>
-    </div>
+<!-- HEADER -->
+<header class="hdr">
+  <span class="hdr-icon">🗳️</span>
+  <div class="hdr-text">
+    <h1>Dashboard Electoral · Diputados Locales Jalisco</h1>
+    <p>2018 · 2021 · 2024 · Constructor de Bloques · Escenarios de Alianza</p>
   </div>
-</div>
+  <button class="hdr-btn" onclick="downloadXLS()">⬇ Descargar .xlsx</button>
+</header>
 
-<div class="gf-panel">
-  <div class="gf-title">▶ Filtro Principal</div>
-  <div class="gf-row">
-    <div class="gf-block">
+<!-- FILTROS -->
+<div class="card card--gold">
+  <div class="card-title">▶ Filtro Principal</div>
+  <div class="filters">
+    <div class="filter-group">
       <label>Año</label>
       <select id="filter-year">
         <option value="all">Todos los años</option>
@@ -158,166 +198,249 @@ body {
         <option value="2024" selected>2024</option>
       </select>
     </div>
-    <div class="gf-block">
+    <div class="filter-group">
       <label>Distrito</label>
       <select id="filter-district"><option value="all">Todos los 20 distritos</option></select>
     </div>
-  
-  <div style="margin-top:10px;">
-    <button onclick="downloadXLS()" style="padding:7px 16px;background:rgba(0,240,255,0.08);color:var(--cyan);border:1px solid rgba(0,240,255,0.3);border-radius:5px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.5px;">
-      ⬇ Descargar datos .xlsx
-    </button>
-  </div>
-</div>
-</div>
-
-<div class="panel" id="party-kpi-panel">
-  <div style="margin-bottom:10px;">
-    <div style="font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);">Análisis por Partido Individual</div>
-    <div style="font-size:9px;color:var(--text-tri);letter-spacing:.5px;margin-top:2px;">Voto exclusivo · Sigue filtros de año y distrito</div>
-  </div>
-  <div id="party-indiv-row" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-</div>
-
-<div class="block-builder">
-  <div class="bb-title">▶ Constructor de Bloques Principal · También define Tabla A</div>
-  <div class="bb-sub">Arrastra los partidos. Afecta KPIs, gráfica histórica y la Tabla A de escenarios.</div>
-  <div class="parties-pool" id="pool-a"><span class="pool-label">Partidos sin asignar</span></div>
-  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;min-width:0;">
-    <div class="block-zone b1" id="zone-1" data-zone="1"><div class="block-header"><input class="block-name" id="block-name-1" value="BLOQUE 1"><div class="block-stats"><div class="block-pct" id="block-pct-1">0%</div><div id="block-votes-1" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
-    <div class="block-zone b2" id="zone-2" data-zone="2"><div class="block-header"><input class="block-name" id="block-name-2" value="BLOQUE 2"><div class="block-stats"><div class="block-pct" id="block-pct-2">0%</div><div id="block-votes-2" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
-    <div class="block-zone b3" id="zone-3" data-zone="3"><div class="block-header"><input class="block-name" id="block-name-3" value="BLOQUE 3"><div class="block-stats"><div class="block-pct" id="block-pct-3">0%</div><div id="block-votes-3" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
-    <div class="block-zone b4" id="zone-4" data-zone="4"><div class="block-header"><input class="block-name" id="block-name-4" value="BLOQUE 4"><div class="block-stats"><div class="block-pct" id="block-pct-4">0%</div><div id="block-votes-4" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
-    <div class="block-zone b5" id="zone-5" data-zone="5"><div class="block-header"><input class="block-name" id="block-name-5" value="BLOQUE 5"><div class="block-stats"><div class="block-pct" id="block-pct-5">0%</div><div id="block-votes-5" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
-  </div>
-  <div class="bb-actions">
-    <button class="bb-btn preset" onclick="applyPreset('4t')">4T vs MC vs Frente</button>
-    <button class="bb-btn preset" onclick="applyPreset('solo')">MORENA vs MC vs PAN</button>
-    <button class="bb-btn" onclick="clearBlocks()">⟳ Limpiar</button>
   </div>
 </div>
 
-<div class="panel">
-  <div class="panel-header">
-    <div><div class="panel-title">Comparativa Histórica · 2018 · 2021 · 2024</div><div class="panel-sub">Sigue filtro de distrito · Barras agrupadas por año</div></div>
-    <div class="hist-toggle">
-      <button class="hist-btn active" id="hbtn-b" onclick="setHistMode('bloques')">Por Bloques</button>
-      <button class="hist-btn" id="hbtn-p" onclick="setHistMode('partidos')">Por Partidos</button>
+<!-- ANÁLISIS POR PARTIDO -->
+<div class="card" id="party-kpi-panel">
+  <div class="card-title">Análisis por Partido Individual</div>
+  <div class="card-sub" style="margin-bottom:10px">Voto exclusivo · Sigue filtros de año y distrito</div>
+  <div class="party-grid" id="party-indiv-row"></div>
+</div>
+
+<!-- CONSTRUCTOR PRINCIPAL -->
+<div class="builder" id="builder-a">
+  <div class="builder-title">▶ Constructor de Bloques Principal · También define Tabla A</div>
+  <div class="builder-sub">Arrastra los partidos. Afecta KPIs, gráfica histórica y Tabla A.</div>
+  <div class="pool" id="pool-a"><span class="pool-lbl">Partidos sin asignar</span></div>
+  <div class="zones" id="zones-a">
+    <div class="zone" data-i="1" id="zone-1">
+      <div class="zone-header">
+        <span class="zone-name" id="block-name-1" style="color:var(--c1)">BLOQUE 1</span>
+        <div class="zone-stats"><div class="zone-pct" id="block-pct-1" style="color:var(--c1)">0%</div><div class="zone-votes" id="block-votes-1">0 votos</div></div>
+      </div>
+      <div class="zone-chips" id="chips-1"></div>
+    </div>
+    <div class="zone" data-i="2" id="zone-2">
+      <div class="zone-header">
+        <span class="zone-name" id="block-name-2" style="color:var(--c2)">BLOQUE 2</span>
+        <div class="zone-stats"><div class="zone-pct" id="block-pct-2" style="color:var(--c2)">0%</div><div class="zone-votes" id="block-votes-2">0 votos</div></div>
+      </div>
+      <div class="zone-chips" id="chips-2"></div>
+    </div>
+    <div class="zone" data-i="3" id="zone-3">
+      <div class="zone-header">
+        <span class="zone-name" id="block-name-3" style="color:var(--c3)">BLOQUE 3</span>
+        <div class="zone-stats"><div class="zone-pct" id="block-pct-3" style="color:var(--c3)">0%</div><div class="zone-votes" id="block-votes-3">0 votos</div></div>
+      </div>
+      <div class="zone-chips" id="chips-3"></div>
+    </div>
+    <div class="zone" data-i="4" id="zone-4">
+      <div class="zone-header">
+        <span class="zone-name" id="block-name-4" style="color:var(--c4)">BLOQUE 4</span>
+        <div class="zone-stats"><div class="zone-pct" id="block-pct-4" style="color:var(--c4)">0%</div><div class="zone-votes" id="block-votes-4">0 votos</div></div>
+      </div>
+      <div class="zone-chips" id="chips-4"></div>
+    </div>
+    <div class="zone" data-i="5" id="zone-5">
+      <div class="zone-header">
+        <span class="zone-name" id="block-name-5" style="color:var(--c5)">BLOQUE 5</span>
+        <div class="zone-stats"><div class="zone-pct" id="block-pct-5" style="color:var(--c5)">0%</div><div class="zone-votes" id="block-votes-5">0 votos</div></div>
+      </div>
+      <div class="zone-chips" id="chips-5"></div>
     </div>
   </div>
-  <div id="kpi-b-sec"><div class="kpi-row" id="kpi-b-row"></div><div class="blocks-bar-wrap"><div class="blocks-bar" id="dist-bar"></div><div class="blocks-legend" id="dist-legend"></div></div></div>
-  <div id="kpi-p-sec" style="display:none"><div class="kpi-row" id="kpi-p-row"></div></div>
+  <div class="bb-actions">
+    <button class="btn btn-gold" onclick="applyPreset('4t')">4T vs MC vs Frente</button>
+    <button class="btn btn-gold" onclick="applyPreset('solo')">MORENA vs MC vs PAN</button>
+    <button class="btn btn-cyan" onclick="clearBlocks()">⟳ Limpiar</button>
+  </div>
+</div>
+
+<!-- HISTÓRICA -->
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+    <div>
+      <div class="card-title" style="margin-bottom:0">Comparativa Histórica · 2018 · 2021 · 2024</div>
+      <div class="card-sub">Sigue filtro de distrito</div>
+    </div>
+    <div class="hist-toggle">
+      <button class="htbtn on" id="hbtn-b" onclick="setHistMode('bloques')">Por Bloques</button>
+      <button class="htbtn" id="hbtn-p" onclick="setHistMode('partidos')">Por Partidos</button>
+    </div>
+  </div>
+  <div id="kpi-b-sec">
+    <div class="kpi-row" id="kpi-b-row"></div>
+    <div class="dist-bar" id="dist-bar"></div>
+    <div class="dist-legend" id="dist-legend" style="margin-bottom:10px"></div>
+  </div>
+  <div id="kpi-p-sec" style="display:none">
+    <div class="kpi-row" id="kpi-p-row"></div>
+  </div>
   <div class="chart-wrap"><canvas id="hist-canvas"></canvas></div>
 </div>
 
-<div class="panel">
-  <div class="panel-header">
-    <div><div class="panel-title">Comparativa de Escenarios</div><div class="panel-sub">Tabla A usa bloques del constructor principal · Tabla B tiene constructor independiente de 5 bloques</div></div>
+<!-- ESCENARIOS -->
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+    <div>
+      <div class="card-title" style="margin-bottom:0">Comparativa de Escenarios</div>
+      <div class="card-sub">Tabla A usa bloques del constructor principal · Tabla B tiene constructor independiente</div>
+    </div>
   </div>
 
-  
-  <div style="font-size:9px;color:var(--text-tri);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">▸ Votos por Partido · Por Distrito</div>
-  <div style="overflow-x:auto;margin-bottom:18px;">
-    <table class="scen-table" id="party-table-main">
-      <thead id="party-head-main"><tr><th>DTTO</th><th>GANADOR</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <div class="scenarios-container">
-    
-    <div class="scen-card" style="border-color:rgba(177,78,255,0.35);">
-      <div class="scen-card-title" style="color:var(--purple);">🅐 Tabla A <span style="font-size:9px;font-weight:400;color:var(--text-sec);">← usa bloques del constructor principal</span></div>
-      <div id="scen-a-preview" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;min-height:24px;"></div>
-      <table class="scen-table" id="scen-table-a">
-        <thead id="scen-head-a"><tr><th>DTTO</th><th>B1</th><th>B2</th><th>B3</th><th>GANADOR</th></tr></thead>
+  <!-- Tabla Por Partido -->
+  <div style="margin-bottom:16px">
+    <div style="font-size:9px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">▸ Votos por Partido · Por Distrito</div>
+    <div class="tbl-wrap">
+      <table class="tbl" id="party-table-main">
+        <thead id="party-head-main"><tr><th>DTTO</th><th>GANADOR</th></tr></thead>
         <tbody></tbody>
-      </table></div>
+      </table>
+    </div>
+  </div>
+
+  <!-- Mobile tabs -->
+  <div class="tab-bar">
+    <button class="tab on" id="tab-a" onclick="showTab('a')">🅐 Tabla A</button>
+    <button class="tab" id="tab-b" onclick="showTab('b')">🅑 Tabla B</button>
+  </div>
+
+  <div class="scen-grid">
+    <!-- TABLA A -->
+    <div class="scen-card" id="scen-panel-a" style="border-color:rgba(177,78,255,0.35)">
+      <div class="scen-title" style="color:var(--purple)">
+        🅐 Tabla A
+        <span style="font-size:9px;font-weight:400;color:var(--text1)">← usa bloques del constructor principal</span>
+      </div>
+      <div class="scen-preview" id="scen-a-preview"></div>
+      <div class="tbl-wrap">
+        <table class="tbl" id="scen-table-a">
+          <thead id="scen-head-a"><tr><th>DTTO</th><th>B1</th><th>B2</th><th>B3</th><th>GANADOR</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
 
-    
-    <div class="scen-card" style="border-color:rgba(0,240,255,0.35);">
-      <div class="scen-card-title" style="color:var(--cyan);">🅑 <input class="scen-name" id="scen-name-b" value="Tabla B" style="color:var(--cyan);border-bottom-color:var(--cyan);"></div>
-      <div class="mini-builder">
-        <div class="mini-builder-title">Constructor de Bloques · Independiente · 5 bloques</div>
-        <div class="parties-pool" id="pool-b" style="min-height:36px;margin-bottom:8px;"><span class="pool-label">Partidos sin asignar</span></div>
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;min-width:0;" id="blocks-b-grid">
-          <div class="block-zone b1" id="zone-b-1" data-zone="b1"><div class="block-header"><input class="block-name" id="block-b-name-1" value="BLOQUE B1"><div class="block-stats"><div class="block-pct" id="block-b-pct-1">0%</div><div id="block-b-votes-1" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
-          <div class="block-zone b2" id="zone-b-2" data-zone="b2"><div class="block-header"><input class="block-name" id="block-b-name-2" value="BLOQUE B2"><div class="block-stats"><div class="block-pct" id="block-b-pct-2">0%</div><div id="block-b-votes-2" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
-          <div class="block-zone b3" id="zone-b-3" data-zone="b3"><div class="block-header"><input class="block-name" id="block-b-name-3" value="BLOQUE B3"><div class="block-stats"><div class="block-pct" id="block-b-pct-3">0%</div><div id="block-b-votes-3" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
-          <div class="block-zone b4" id="zone-b-4" data-zone="b4"><div class="block-header"><input class="block-name" id="block-b-name-4" value="BLOQUE B4"><div class="block-stats"><div class="block-pct" id="block-b-pct-4">0%</div><div id="block-b-votes-4" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
-          <div class="block-zone b5" id="zone-b-5" data-zone="b5"><div class="block-header"><input class="block-name" id="block-b-name-5" value="BLOQUE B5"><div class="block-stats"><div class="block-pct" id="block-b-pct-5">0%</div><div id="block-b-votes-5" style="font-size:9px;color:var(--text-sec)">0 votos</div></div></div></div>
+    <!-- TABLA B -->
+    <div class="scen-card" id="scen-panel-b" style="border-color:rgba(0,240,255,0.35)">
+      <div class="scen-title" style="color:var(--cyan)">🅑 Tabla B</div>
+
+      <!-- Mini builder B -->
+      <div style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.12);border-radius:6px;padding:10px;margin-bottom:10px">
+        <div style="font-size:9px;color:var(--cyan);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:6px">Constructor Independiente · 5 Bloques</div>
+        <div class="pool" id="pool-b"><span class="pool-lbl">Partidos sin asignar</span></div>
+        <div class="zones" id="zones-b">
+          <div class="zone" data-i="1" id="zone-b-1">
+            <div class="zone-header">
+              <span class="zone-name" id="block-b-name-1" style="color:var(--c1)">B1</span>
+              <div class="zone-stats"><div class="zone-pct" id="block-b-pct-1" style="color:var(--c1)">0%</div><div class="zone-votes" id="block-b-votes-1">0v</div></div>
+            </div>
+            <div class="zone-chips" id="chips-b-1"></div>
+          </div>
+          <div class="zone" data-i="2" id="zone-b-2">
+            <div class="zone-header">
+              <span class="zone-name" id="block-b-name-2" style="color:var(--c2)">B2</span>
+              <div class="zone-stats"><div class="zone-pct" id="block-b-pct-2" style="color:var(--c2)">0%</div><div class="zone-votes" id="block-b-votes-2">0v</div></div>
+            </div>
+            <div class="zone-chips" id="chips-b-2"></div>
+          </div>
+          <div class="zone" data-i="3" id="zone-b-3">
+            <div class="zone-header">
+              <span class="zone-name" id="block-b-name-3" style="color:var(--c3)">B3</span>
+              <div class="zone-stats"><div class="zone-pct" id="block-b-pct-3" style="color:var(--c3)">0%</div><div class="zone-votes" id="block-b-votes-3">0v</div></div>
+            </div>
+            <div class="zone-chips" id="chips-b-3"></div>
+          </div>
+          <div class="zone" data-i="4" id="zone-b-4">
+            <div class="zone-header">
+              <span class="zone-name" id="block-b-name-4" style="color:var(--c4)">B4</span>
+              <div class="zone-stats"><div class="zone-pct" id="block-b-pct-4" style="color:var(--c4)">0%</div><div class="zone-votes" id="block-b-votes-4">0v</div></div>
+            </div>
+            <div class="zone-chips" id="chips-b-4"></div>
+          </div>
+          <div class="zone" data-i="5" id="zone-b-5">
+            <div class="zone-header">
+              <span class="zone-name" id="block-b-name-5" style="color:var(--c5)">B5</span>
+              <div class="zone-stats"><div class="zone-pct" id="block-b-pct-5" style="color:var(--c5)">0%</div><div class="zone-votes" id="block-b-votes-5">0v</div></div>
+            </div>
+            <div class="zone-chips" id="chips-b-5"></div>
+          </div>
         </div>
-        <div class="bb-actions" style="margin-top:8px;">
-          <button class="bb-btn preset" onclick="applyPresetB('default')">MORENA+PT · MC+PVEM · PAN · PRI+PRD+HAG+FUT</button>
-          <button class="bb-btn preset" onclick="applyPresetB('4t')">4T vs MC vs Frente</button>
-          <button class="bb-btn" onclick="clearBlocksB()">⟳ Limpiar</button>
+        <div class="bb-actions">
+          <button class="btn btn-gold" onclick="applyPresetB('default')">MORENA+PT · MC+PVEM · PAN · PRI+PRD+HAG+FUT</button>
+          <button class="btn btn-gold" onclick="applyPresetB('4t')">4T vs MC vs Frente</button>
+          <button class="btn btn-cyan" onclick="clearBlocksB()">⟳ Limpiar</button>
         </div>
       </div>
-      <table class="scen-table" id="scen-table-b">
-        <thead id="scen-head-b"><tr><th>DTTO</th><th>B1</th><th>B2</th><th>B3</th><th>B4</th><th>GANADOR</th></tr></thead>
-        <tbody></tbody>
-      </table></div>
+
+      <div class="tbl-wrap">
+        <table class="tbl" id="scen-table-b">
+          <thead id="scen-head-b"><tr><th>DTTO</th><th>B1</th><th>B2</th><th>B3</th><th>B4</th><th>B5</th><th>GANADOR</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-  <div class="sep-btn-row">
-    <button class="sep-btn" onclick="toggleMerge()" id="merge-btn">⊕ Comparar A vs B por Distrito</button>
+  <!-- Comparar -->
+  <div style="display:flex;justify-content:center;margin:12px 0">
+    <button class="btn btn-purple" onclick="toggleMerge()" id="merge-btn">⊕ Comparar A vs B por Distrito</button>
   </div>
-  <div class="merged-result" id="merged-result">
+  <div class="merged-panel" id="merged-result">
     <div class="merged-title">⚔ Comparativa A vs B · Ganadores por Distrito</div>
-    <div style="overflow-x:auto;"><table class="merged-table" id="merged-table">
-      <thead><tr>
-        <th>DTTO</th>
-        <th id="mha1">A-B1</th><th id="mha2">A-B2</th><th id="mha3">A-B3</th><th id="mha4">A-B4</th><th id="mha5">A-B5</th><th>GANADOR A</th>
-        <th id="mhb1">B-B1</th><th id="mhb2">B-B2</th><th id="mhb3">B-B3</th><th id="mhb4">B-B4</th><th id="mhb5">B-B5</th><th>GANADOR B</th>
-        <th>¿COINCIDE?</th>
-      </tr></thead>
-      <tbody></tbody>
-    </table>
+    <div class="tbl-wrap">
+      <table class="tbl" id="merged-table">
+        <thead><tr>
+          <th>DTTO</th>
+          <th id="mha1">A-B1</th><th id="mha2">A-B2</th><th id="mha3">A-B3</th><th id="mha4">A-B4</th><th id="mha5">A-B5</th><th>GANADOR A</th>
+          <th id="mhb1">B-B1</th><th id="mhb2">B-B2</th><th id="mhb3">B-B3</th><th id="mhb4">B-B4</th><th id="mhb5">B-B5</th><th>GANADOR B</th>
+          <th>¿COINCIDE?</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
-<div class="panel">
-  <div class="panel-header">
+<!-- GRÁFICA COMPARATIVA A vs B -->
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
     <div>
-      <div class="panel-title">Gráfica Comparativa · Escenario A vs B por Año</div>
-      <div class="panel-sub">Porcentaje de votos de cada bloque en 2018 · 2021 · 2024</div>
+      <div class="card-title" style="margin-bottom:0">Gráfica Comparativa · Escenario A vs B por Año</div>
+      <div class="card-sub">Porcentaje de votos por bloque · 2018 · 2021 · 2024</div>
     </div>
-    <div style="display:flex;gap:10px;align-items:end;flex-wrap:wrap;">
-      <div>
-        <label style="font-size:9px;color:var(--text-tri);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;">Distrito</label>
-        <select id="comp-chart-district" style="padding:6px 10px;background:rgba(5,8,16,0.8);border:1px solid rgba(0,240,255,0.3);border-radius:5px;color:var(--text-pri);font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;">
-          <option value="all">Todos</option>
-        </select>
-      </div>
+    <div>
+      <label style="font-size:9px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px">Distrito</label>
+      <select id="comp-chart-district" style="padding:6px 10px;background:rgba(5,8,16,0.8);border:1px solid rgba(0,240,255,0.3);border-radius:5px;color:var(--text0);font-size:12px;font-weight:700;font-family:inherit;cursor:pointer">
+        <option value="all">Todos</option>
+      </select>
     </div>
   </div>
-  <div style="position:relative;width:100%;height:320px;">
-    <canvas id="comp-canvas"></canvas>
-  </div>
+  <div class="chart-wrap" style="height:clamp(240px,32vw,340px)"><canvas id="comp-canvas"></canvas></div>
 </div>
 
-<div class="panel">
-  <div class="panel-header">
-    <div>
-      <div class="panel-title">Diputados Locales Electos · Por Distrito</div>
-      <div class="panel-sub">Ganadores por Mayoría Relativa · 2018 · 2021 · 2024</div>
-    </div>
-  </div>
-  <div style="overflow-x:auto;">
-    <table class="scen-table" id="dip-table" style="min-width:700px;">
+<!-- DIPUTADOS -->
+<div class="card">
+  <div class="card-title">Diputados Locales Electos · Por Distrito</div>
+  <div class="card-sub" style="margin-bottom:10px">Ganadores por Mayoría Relativa · Sigue filtro de año</div>
+  <div class="tbl-wrap">
+    <table class="tbl" id="dip-table">
       <thead id="dip-thead"></thead>
       <tbody id="dip-tbody"></tbody>
     </table>
   </div>
 </div>
-</div>
+
+</div><!-- .app -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-// DIPUTADOS DATA — mayoría relativa por distrito
 const DIPS={
   2018:{
     1:{nombre:'Jorge Antonio Chávez Ambriz',partido:'MC'},
@@ -386,9 +509,6 @@ const DIPS={
     20:{nombre:'Valeria Guadalupe Ávila Gutiérrez',partido:'HAGAMOS'},
   }
 };
-const PC={PAN:'#1565c0',PRI:'#c62828',PRD:'#f9a825',PVEM:'#2e7d32',PT:'#b71c1c',MC:'#e65100',MORENA:'#6a0000',HAGAMOS:'#6a1b9a',FUTURO:'#00838f',PES:'#4527a0'};
-const PL={PAN:'PAN',PRI:'PRI',PRD:'PRD',PVEM:'PVEM',PT:'PT',MC:'MC',MORENA:'MORENA',HAGAMOS:'HAGAMOS',FUTURO:'FUTURO',PES:'PES'};
-const BC=['var(--b1)','var(--b2)','var(--b3)','#00b496','#ff50b4'];
 
 const D=[
   {y:2018,d:1,PAN:30601,PRI:35322,PRD:2767,PVEM:6716,PT:6909,MC:41288,MORENA:32250,PES:1475,HAGAMOS:0,FUTURO:0,T:165474},
@@ -453,672 +573,6 @@ const D=[
   {y:2024,d:20,PAN:8049,PRI:12857,PRD:1048,PVEM:5135,PT:3267,MC:38596,MORENA:52458,PES:0,HAGAMOS:3668,FUTURO:3077,T:131576},
 ];
 
-// STATE
-let blocks={1:[],2:[],3:[],4:[],5:[]}, bNames={1:'BLOQUE 1',2:'BLOQUE 2',3:'BLOQUE 3',4:'BLOQUE 4',5:'BLOQUE 5'};
-let blocksB={1:[],2:[],3:[],4:[],5:[]}, bNamesB={1:'BLOQUE B1',2:'BLOQUE B2',3:'BLOQUE B3',4:'BLOQUE B4',5:'BLOQUE B5'};
-const BC4=['var(--b1)','var(--b2)','var(--b3)','#00b496','#ff50b4'];
-let histMode='bloques', histChart=null, mergeVisible=false;
-
-// HELPERS
-const fmt=n=>Math.round(n).toLocaleString('es-MX');
-const sumP=(rows,p)=>rows.reduce((s,r)=>s+(r[p]||0),0);
-const sumB=(rows,ps)=>ps.reduce((s,p)=>s+sumP(rows,p),0);
-const getY=()=>document.getElementById('filter-year').value;
-const getDist=()=>document.getElementById('filter-district').value;
-const filtRows=()=>D.filter(r=>(getY()=='all'||r.y==+getY())&&(getDist()=='all'||r.d==+getDist()));
-const yearRows=y=>D.filter(r=>r.y==y);
-const dList=y=>{const src=y?yearRows(y):D;return[...new Set(src.map(r=>r.d))].sort((a,b)=>a-b);}
-const ALL_PARTIES=['PAN','PRI','PRD','PVEM','PT','MC','MORENA','HAGAMOS','FUTURO','PES'];
-const partiesFor=y=>{
-  const b=['PAN','PRI','PRD','PVEM','PT','MC','MORENA'];
-  if(y=='all'||y==2018)b.push('PES');
-  if(y=='all'||y==2021||y==2024){b.push('HAGAMOS');b.push('FUTURO');}
-  return b;
-};
-
-// POOL A — NUNCA borra partidos de los bloques; solo controla qué aparece en el pool
-function rebuildPoolA(){
-  const y=getY();const pts=partiesFor(y=='all'?'all':+y);
-  const inB=[].concat(blocks[1],blocks[2],blocks[3],blocks[4],blocks[5]);
-  const pool=document.getElementById('pool-a');
-  const lbl=pool.querySelector('.pool-label');pool.innerHTML='';
-  pool.appendChild(lbl||Object.assign(document.createElement('span'),{className:'pool-label',textContent:'Partidos sin asignar'}));
-  // Solo mostrar en pool los que: existen en este año Y no están en ningún bloque
-  pts.forEach(p=>{if(!inB.includes(p))pool.appendChild(mkChip(p,'pool-a',false));});
-}
-// INIT
-(()=>{
-  const s=document.getElementById('filter-district');
-  for(let i=1;i<=20;i++){const o=document.createElement('option');o.value=i;o.textContent='Distrito '+String(i).padStart(2,'0');s.appendChild(o);}
-  s.addEventListener('change',refresh);
-  document.getElementById('filter-year').addEventListener('change',()=>{rebuildPools();refresh();});
-})();
-
-// CHIP MAKER
-function mkChip(p,ctx,isB){
-  const c=document.createElement('span');c.className='party-chip';c.dataset.party=p;c.setAttribute('draggable','true');
-  c.style.borderColor=PC[p]||'#555';c.style.background=(PC[p]||'#333')+'22';
-  c.innerHTML=`<span style="color:${PC[p]||'#fff'}">${PL[p]||p}</span>`;
-  if(ctx!=='pool-a'&&ctx!=='pool-b'){
-    const rm=document.createElement('span');rm.className='chip-remove';rm.textContent='×';
-    rm.addEventListener('click',e=>{e.stopPropagation();isB?removeB(p,ctx):removeA(p,ctx);});
-    c.appendChild(rm);
-  }
-  const tag=isB?`B:${p}:${ctx}`:`A:${p}:${ctx}`;
-  c.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',tag);c.classList.add('drag');});
-  c.addEventListener('dragend',()=>c.classList.remove('drag'));
-  return c;
-}
-function renderBlocksA(){
-  for(let b=1;b<=5;b++){const z=document.getElementById('zone-'+b);if(!z)continue;z.querySelectorAll('.party-chip').forEach(c=>c.remove());(blocks[b]||[]).forEach(p=>z.appendChild(mkChip(p,String(b),false)));}
-}
-function removeA(p,ctx){const b=+ctx;blocks[b]=blocks[b].filter(x=>x!==p);renderBlocksA();rebuildPoolA();refresh();}
-
-// POOL B — NUNCA borra partidos de los bloques; solo controla qué aparece en el pool
-function rebuildPoolB(){
-  const y=getY();const pts=partiesFor(y=='all'?'all':+y);
-  const inB=[].concat(blocksB[1],blocksB[2],blocksB[3],blocksB[4],blocksB[5]);
-  const pool=document.getElementById('pool-b');
-  const lbl=pool.querySelector('.pool-label');pool.innerHTML='';
-  pool.appendChild(lbl||Object.assign(document.createElement('span'),{className:'pool-label',textContent:'Partidos sin asignar'}));
-  pts.forEach(p=>{if(!inB.includes(p))pool.appendChild(mkChip(p,'pool-b',true));});
-  updBStats();
-}
-function renderBlocksB(){
-  for(let b=1;b<=5;b++){const z=document.getElementById('zone-b-'+b);if(!z)continue;z.querySelectorAll('.party-chip').forEach(c=>c.remove());(blocksB[b]||[]).forEach(p=>z.appendChild(mkChip(p,'b'+b,true)));}
-  updBStats();
-}
-function removeB(p,ctx){const b=+ctx.replace('b','');blocksB[b]=blocksB[b].filter(x=>x!==p);renderBlocksB();rebuildPoolB();refresh();}
-function updBStats(){
-  const y=getY();const rows=y=='all'?D:D.filter(r=>r.y==+y);
-  const tot=rows.reduce((s,r)=>s+r.T,0);
-  for(let b=1;b<=5;b++){
-    const el=document.getElementById('block-b-pct-'+b);const el2=document.getElementById('block-b-votes-'+b);
-    if(!el)continue;const v=sumB(rows,blocksB[b]||[]);
-    el.textContent=tot?(v/tot*100).toFixed(1)+'%':'0%';el2.textContent=fmt(v)+' votos';
-  }
-}
-const rebuildPools=()=>{rebuildPoolA();rebuildPoolB();};
-
-// DRAG-DROP A zones
-['zone-1','zone-2','zone-3','zone-4','zone-5'].forEach(id=>{
-  const z=document.getElementById(id);
-  z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('dragover');});
-  z.addEventListener('dragleave',()=>z.classList.remove('dragover'));
-  z.addEventListener('drop',e=>{
-    e.preventDefault();z.classList.remove('dragover');
-    const raw=e.dataTransfer.getData('text/plain');if(!raw.startsWith('A:'))return;
-    const parts=raw.split(':');const p=parts[1];const from=parts.slice(2).join(':');
-    const toZ=+z.dataset.zone;
-    if(from&&from!=='pool-a'){const fb=+from;blocks[fb]=blocks[fb].filter(x=>x!==p);}
-    if(!blocks[toZ].includes(p))blocks[toZ].push(p);
-    renderBlocksA();rebuildPoolA();refresh();
-  });
-});
-
-// DRAG-DROP B zones (4)
-['zone-b-1','zone-b-2','zone-b-3','zone-b-4','zone-b-5'].forEach(id=>{
-  const z=document.getElementById(id);if(!z)return;
-  z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('dragover');});
-  z.addEventListener('dragleave',()=>z.classList.remove('dragover'));
-  z.addEventListener('drop',e=>{
-    e.preventDefault();z.classList.remove('dragover');
-    const raw=e.dataTransfer.getData('text/plain');if(!raw.startsWith('B:'))return;
-    const parts=raw.split(':');const p=parts[1];const from=parts.slice(2).join(':');
-    const toZ=+z.dataset.zone.replace('b','');
-    if(from&&from!=='pool-b'){const fb=+from.replace('b','');if(blocksB[fb])blocksB[fb]=blocksB[fb].filter(x=>x!==p);}
-    if(!blocksB[toZ])blocksB[toZ]=[];
-    if(!blocksB[toZ].includes(p))blocksB[toZ].push(p);
-    renderBlocksB();rebuildPoolB();refresh();
-  });
-});
-
-// PRESETS A
-function applyPreset(t){
-  if(t=='4t'){blocks={1:['MORENA','PT','PVEM','HAGAMOS','FUTURO'],2:['MC'],3:['PAN','PRI','PRD'],4:[],5:[]};bNames={1:'4T/SHHJ',2:'MC',3:'Frente',4:'',5:''};}
-  else{blocks={1:['MORENA'],2:['MC'],3:['PAN'],4:[],5:[]};bNames={1:'MORENA',2:'MC',3:'PAN',4:'',5:''};}
-  ['1','2','3','4','5'].forEach(b=>{document.getElementById('block-name-'+b).value=bNames[+b];});
-  renderBlocksA();rebuildPoolA();refresh();
-}
-function clearBlocks(){blocks={1:[],2:[],3:[],4:[],5:[]};renderBlocksA();rebuildPoolA();refresh();}
-function applyPresetB(t){
-  if(t=='default'){
-    blocksB={1:['MORENA','PT'],2:['MC','PVEM'],3:['PAN'],4:['PRI','PRD','HAGAMOS','FUTURO'],5:[]};
-    bNamesB={1:'MORENA+PT',2:'MC+PVEM',3:'PAN',4:'PRI+PRD+HAG+FUT',5:''};
-  } else if(t=='4t'){
-    blocksB={1:['MORENA','PT','PVEM','HAGAMOS','FUTURO'],2:['MC'],3:['PAN','PRI','PRD'],4:[],5:[]};
-    bNamesB={1:'4T/SHHJ',2:'MC',3:'Frente',4:'(vacío)',5:''};
-  } else {
-    blocksB={1:['MORENA'],2:['MC'],3:['PAN'],4:[],5:[]};
-    bNamesB={1:'MORENA',2:'MC',3:'PAN',4:'(vacío)',5:''};
-  }
-  ['1','2','3','4','5'].forEach(b=>{const el=document.getElementById('block-b-name-'+b);if(el)el.value=bNamesB[+b];});
-  renderBlocksB();rebuildPoolB();refresh();
-}
-function clearBlocksB(){blocksB={1:[],2:[],3:[],4:[],5:[]};renderBlocksB();rebuildPoolB();refresh();}
-
-// REFRESH
-function refresh(){
-  const rows=filtRows();
-  updBlockKPIs(rows);updPartKPIs(rows);renderHist();
-  renderPartyIndiv(rows);
-  renderPartyTable();
-  renderTableA();renderTableB();
-  renderCompChart();
-  renderDiputados();
-  if(mergeVisible)renderMerged();
-}
-
-// DIPUTADOS GANADORES TABLE
-function renderDiputados(){
-  const tbody=document.getElementById('dip-tbody');
-  if(!tbody)return;
-  tbody.innerHTML='';
-  const yrs=[2018,2021,2024];
-  for(let d=1;d<=20;d++){
-    const tr=document.createElement('tr');
-    let c=`<td style="font-weight:800;color:var(--gold);text-align:center">${String(d).padStart(2,'0')}</td>`;
-    yrs.forEach((y,yi)=>{
-      const dip=DIPS[y]?DIPS[y][d]:null;
-      if(!dip){ c+=`<td style="color:var(--text-tri);font-style:italic">—</td>`; return; }
-      const pColor=PC[dip.partido]||'#888';
-      const isMorena=['MORENA','PT','PVEM','HAGAMOS','FUTURO'].includes(dip.partido);
-      const isMC=dip.partido==='MC';
-      const bgAlpha=yi===2?'18':'0d';
-      c+=`<td style="background:${pColor}${bgAlpha}">
-        <div style="display:flex;align-items:center;gap:6px;">
-          <span style="width:6px;height:6px;border-radius:50%;background:${pColor};flex-shrink:0;display:inline-block"></span>
-          <div>
-            <div style="font-weight:700;color:${pColor};font-size:10px;letter-spacing:.3px">${dip.nombre}</div>
-            <div style="font-size:9px;color:${pColor};opacity:.7">${dip.partido}</div>
-          </div>
-        </div>
-      </td>`;
-    });
-    tr.innerHTML=c;tbody.appendChild(tr);
-  }
-}
-
-// PARTY INDIVIDUAL KPI CARDS (ordenadas por votos desc)
-function renderPartyIndiv(rows){
-  const tot=rows.reduce((s,r)=>s+r.T,0);
-  const y=getY();const pts=partiesFor(y=='all'?'all':+y);
-  const sorted=pts.map(p=>({p,v:sumP(rows,p)})).sort((a,b)=>b.v-a.v);
-  const maxV=sorted[0]?sorted[0].v:1;
-  const container=document.getElementById('party-indiv-row');container.innerHTML='';
-  sorted.forEach(({p,v},i)=>{
-    const pct=tot?(v/tot*100).toFixed(2):0;
-    const barW=maxV?Math.round(v/maxV*100):0;
-    const card=document.createElement('div');card.className='party-indiv-card';
-    card.style.borderColor=PC[p]||'#555';
-    card.innerHTML=`
-      <span class="rank">#${i+1}</span>
-      <div class="p-name" style="color:${PC[p]||'#fff'}">${PL[p]||p}</div>
-      <div class="p-pct" style="color:${PC[p]||'#fff'}">${pct}%</div>
-      <div class="p-votes">${fmt(v)} votos</div>
-      <div class="p-bar" style="width:${barW}%;background:${PC[p]||'#555'}"></div>
-    `;
-    container.appendChild(card);
-  });
-}
-
-// KPIs A
-function updBlockKPIs(rows){
-  const tot=rows.reduce((s,r)=>s+r.T,0);
-  const kpi=document.getElementById('kpi-b-row');kpi.innerHTML='';
-  let bh='',lh='';
-  const bv=[1,2,3,4,5].map(b=>sumB(rows,blocks[b]||[]));
-  const na=tot-bv.reduce((s,v)=>s+v,0);
-  bv.forEach((v,i)=>{
-    const b=i+1,p=tot?(v/tot*100).toFixed(1):0,nm=document.getElementById('block-name-'+b).value||'B'+b;
-    const c=document.createElement('div');c.className='kpi-card';
-    c.innerHTML=`<div class="kpi-label">${nm}</div><div class="kpi-val" style="color:${BC[i]}">${p}%</div><div class="kpi-sub">${fmt(v)} votos</div>`;
-    kpi.appendChild(c);
-    const bClass2=b<=3?`b${b}`:b==4?'b4':'b5';const bStyle2=b>=4?`;background:${BC[b-1]}`:'';bh+=`<div class="bar-seg ${bClass2}" style="width:${tot?v/tot*100:0}%${bStyle2}">${p}%</div>`;
-    lh+=`<div class="leg-item"><div class="leg-dot" style="background:${BC[i]}"></div>${nm}·${fmt(v)} (${p})</div>`;
-    document.getElementById('block-pct-'+b).textContent=p+'%';
-    document.getElementById('block-votes-'+b).textContent=fmt(v)+' votos';
-  });
-  if(na>0)bh+=`<div class="bar-seg bn" style="width:${tot?na/tot*100:0}%"></div>`;
-  document.getElementById('dist-bar').innerHTML=bh;
-  document.getElementById('dist-legend').innerHTML=lh;
-}
-function updPartKPIs(rows){
-  const tot=rows.reduce((s,r)=>s+r.T,0);
-  const y=getY();const pts=partiesFor(y=='all'?'all':+y);
-  const kpi=document.getElementById('kpi-p-row');kpi.innerHTML='';
-  pts.map(p=>({p,v:sumP(rows,p)})).sort((a,b)=>b.v-a.v).forEach(({p,v})=>{
-    const pt=tot?(v/tot*100).toFixed(1):0;const c=document.createElement('div');c.className='kpi-card';
-    c.innerHTML=`<div class="kpi-label" style="color:${PC[p]}">${PL[p]||p}</div><div class="kpi-val" style="color:${PC[p]}">${pt}%</div><div class="kpi-sub">${fmt(v)}</div>`;
-    kpi.appendChild(c);
-  });
-}
-
-// HIST
-function setHistMode(m){
-  histMode=m;
-  document.getElementById('hbtn-b').classList.toggle('active',m=='bloques');
-  document.getElementById('hbtn-p').classList.toggle('active',m=='partidos');
-  document.getElementById('kpi-b-sec').style.display=m=='bloques'?'':'none';
-  document.getElementById('kpi-p-sec').style.display=m=='partidos'?'':'none';
-  renderHist();
-}
-function renderHist(){
-  const dist=getDist();
-  const getYR=y=>dist=='all'?D.filter(r=>r.y==y):D.filter(r=>r.y==y&&r.d==+dist);
-  const yrs=[2018,2021,2024],al=['ff','bb','77'];let labels,datasets;
-  if(histMode=='bloques'){
-    labels=[1,2,3].map(b=>document.getElementById('block-name-'+b).value||'B'+b);
-    datasets=yrs.map((y,i)=>{const yr=getYR(y),tot=yr.reduce((s,r)=>s+r.T,0);
-      return{label:String(y),data:[1,2,3].map(b=>tot?sumB(yr,blocks[b])/tot*100:0),
-        backgroundColor:['#e83030','#ff8c00','#2266cc'].map(c=>c+al[i]),borderColor:['#e83030','#ff8c00','#2266cc'],borderWidth:1,borderRadius:3};});
-  }else{
-    const y=getY();const pts=partiesFor(y=='all'?'all':+y);labels=pts.map(p=>PL[p]||p);
-    const ys=y=='all'?yrs:[+y];
-    datasets=ys.map((yr,i)=>{const d=getYR(yr),tot=d.reduce((s,r)=>s+r.T,0);
-      return{label:String(yr),data:pts.map(p=>tot?sumP(d,p)/tot*100:0),
-        backgroundColor:pts.map(p=>(PC[p]||'#555')+(al[i]||'ff')),borderColor:pts.map(p=>PC[p]||'#555'),borderWidth:1,borderRadius:3};});
-  }
-  const ctx=document.getElementById('hist-canvas').getContext('2d');
-  if(histChart)histChart.destroy();
-  histChart=new Chart(ctx,{type:'bar',data:{labels,datasets},options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{labels:{color:'#8fa3c7',font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+'%'}}},
-    scales:{x:{ticks:{color:'#8fa3c7',font:{size:11}},grid:{color:'rgba(140,180,240,0.06)'}},
-      y:{ticks:{color:'#8fa3c7',font:{size:11},callback:v=>v.toFixed(0)+'%'},grid:{color:'rgba(140,180,240,0.06)'},max:60}}}});
-}
-
-// PARTY TABLE (única, arriba de escenarios) — ventaja de MORENA vs segundo
-const sortStateParty={col:'dtto',dir:1};
-function renderPartyTable(){
-  const y=getY();const rows=y=='all'?D:D.filter(r=>r.y==+y);
-  const pts=partiesFor(y=='all'?'all':+y);
-  const ds=dList(y=='all'?null:+y);
-  const headEl=document.getElementById('party-head-main');
-  const tbody=document.querySelector('#party-table-main tbody');
-  if(!headEl||!tbody)return;
-
-  // Build rows with MORENA ventaja
-  let rowData=ds.map(d=>{
-    const dr=rows.filter(r=>r.d==d);const tot=dr.reduce((s,r)=>s+r.T,0);
-    const pv={};pts.forEach(p=>{pv[p]=sumP(dr,p);});
-    const morenaV=pv['MORENA']||0;
-    const others=pts.filter(p=>p!=='MORENA').map(p=>pv[p]||0);
-    const maxOther=others.length?Math.max(...others):0;
-    const ventaja=morenaV-maxOther;
-    const ventajaPct=tot?(ventaja/tot*100).toFixed(1):0;
-    const mx=Math.max(...pts.map(p=>pv[p]));const winner=pts.find(p=>pv[p]===mx)||'';
-    return{d,tot,pv,mx,winner,ventaja,ventajaPct};
-  });
-
-  // Sort
-  const sp=sortStateParty;
-  if(sp.col==='dtto') rowData.sort((a,b)=>sp.dir*(a.d-b.d));
-  else if(sp.col==='ventaja') rowData.sort((a,b)=>sp.dir*(b.ventaja-a.ventaja));
-
-  // Header
-  const mkThP=(label,col)=>{
-    const active=sp.col===col;const arrow=active?(sp.dir===1?'▲':'▼'):'⇅';
-    return `<th style="cursor:pointer;user-select:none;${active?'color:var(--gold)':''}" onclick="toggleSortParty('${col}')">${label} <span style="font-size:8px;opacity:.7">${arrow}</span></th>`;
-  };
-  const htr=document.createElement('tr');
-  htr.innerHTML=mkThP('DTTO','dtto');
-  pts.forEach(p=>{const th=document.createElement('th');th.style.color=PC[p]||'#fff';th.textContent=PL[p]||p;htr.appendChild(th);});
-  htr.innerHTML+=mkThP('VENTAJA MORENA','ventaja')+'<th>GANADOR</th>';
-  headEl.innerHTML='';headEl.appendChild(htr);
-  tbody.innerHTML='';
-
-  const totals={};pts.forEach(p=>totals[p]=0);let totVentaja=0;
-  rowData.forEach(({d,tot,pv,mx,winner,ventaja,ventajaPct})=>{
-    pts.forEach(p=>totals[p]+=(pv[p]||0)); totVentaja+=ventaja;
-    const row=document.createElement('tr');
-    row.style.cursor='pointer';
-    row.addEventListener('click',()=>selectDistrict(d));
-    row.addEventListener('mouseenter',()=>row.style.background='rgba(0,240,255,0.05)');
-    row.addEventListener('mouseleave',()=>row.style.background='');
-    let c=`<td>${String(d).padStart(2,'0')}</td>`;
-    pts.forEach(p=>{
-      const v=pv[p]||0,pct=tot?(v/tot*100).toFixed(1):0,isW=p===winner;
-      c+=`<td class="${isW?'win':''}" style="color:${isW?PC[p]:'var(--text-sec)'}">${fmt(v)}<br><span style="font-size:9px;opacity:.7">${pct}%</span></td>`;
-    });
-    const vColor=ventaja>=0?'var(--green)':'var(--red)';
-    const vSign=ventaja>=0?'+':'';
-    c+=`<td style="color:${vColor};font-weight:700">${vSign}${fmt(ventaja)}<br><span style="font-size:9px;opacity:.8">${vSign}${ventajaPct}%</span></td>`;
-    c+=`<td style="color:${PC[winner]||'#fff'};font-weight:800">✅ ${PL[winner]||winner}</td>`;
-    row.innerHTML=c;tbody.appendChild(row);
-  });
-
-  const gt=pts.reduce((s,p)=>s+totals[p],0);
-  const mxT=Math.max(...pts.map(p=>totals[p]));const winT=pts.find(p=>totals[p]===mxT)||'';
-  const trow=document.createElement('tr');let c=`<td>TOTAL</td>`;
-  pts.forEach(p=>{const v=totals[p],pct=gt?(v/gt*100).toFixed(1):0;c+=`<td style="color:${PC[p]};font-weight:700">${fmt(v)}·${pct}%</td>`;});
-  const tvColor=totVentaja>=0?'var(--green)':'var(--red)';
-  c+=`<td style="color:${tvColor};font-weight:700">${totVentaja>=0?'+':''}${fmt(totVentaja)}</td>`;
-  c+=`<td style="color:${PC[winT]||'#fff'};font-weight:800">✅ ${PL[winT]||winT}</td>`;
-  trow.innerHTML=c;tbody.appendChild(trow);
-}
-function toggleSortParty(col){
-  if(sortStateParty.col===col) sortStateParty.dir*=-1;
-  else{sortStateParty.col=col;sortStateParty.dir=-1;}
-  renderPartyTable();
-}
-
-// GRÁFICA COMPARATIVA A vs B por año
-let compChart=null;
-(function initCompSelect(){
-  const s=document.getElementById('comp-chart-district');
-  if(!s)return;
-  for(let i=1;i<=20;i++){const o=document.createElement('option');o.value=i;o.textContent='Distrito '+String(i).padStart(2,'0');s.appendChild(o);}
-  s.addEventListener('change',renderCompChart);
-})();
-
-function renderCompChart(){
-  const dist=document.getElementById('comp-chart-district').value;
-  const yrs=[2018,2021,2024];
-  const getYR=y=>dist=='all'?D.filter(r=>r.y==y):D.filter(r=>r.y==y&&r.d==+dist);
-
-  // Labels: bloques A (3) + bloques B (4) con separador visual
-  const labelsA=[1,2,3,4,5].map(b=>'A: '+(document.getElementById('block-name-'+b).value||'B'+b));
-  const labelsB=[1,2,3,4,5].map(b=>'B: '+(document.getElementById('block-b-name-'+b).value||'B'+b));
-  const allLabels=[...labelsA,...labelsB];
-
-  const solidColsA=['#e83030','#ff8c00','#2266cc'];
-  const solidColsB=['#e83030','#ff8c00','#2266cc','#00b496'];
-  // B gets hatched feel via opacity
-  const bgA=solidColsA;
-  const bgB=solidColsB.map(c=>c+'99');
-  const allBg=[...bgA,...bgB];
-  const allBorder=[...solidColsA,...solidColsB];
-
-  const alphas=['ff','cc','88'];
-  const datasets=yrs.map((y,i)=>{
-    const yr=getYR(y);const tot=yr.reduce((s,r)=>s+r.T,0);
-    const aVals=[1,2,3,4,5].map(b=>tot?sumB(yr,blocks[b]||[])/tot*100:0);
-    const bVals=[1,2,3,4,5].map(b=>tot?sumB(yr,blocksB[b]||[])/tot*100:0);
-    return{
-      label:String(y),
-      data:[...aVals,...bVals],
-      backgroundColor:allBg.map(c=>c.length===9?c.slice(0,7)+alphas[i]:c+alphas[i]),
-      borderColor:allBorder,
-      borderWidth:1,borderRadius:3,
-    };
-  });
-
-  const ctx=document.getElementById('comp-canvas').getContext('2d');
-  if(compChart)compChart.destroy();
-  compChart=new Chart(ctx,{
-    type:'bar',
-    data:{labels:allLabels,datasets},
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{
-        legend:{labels:{color:'#8fa3c7',font:{size:11}}},
-        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+'%'}},
-      },
-      scales:{
-        x:{ticks:{color:'#8fa3c7',font:{size:10}},grid:{color:'rgba(140,180,240,0.06)'},
-          afterDraw(chart){
-            // draw divider between A and B groups
-            const meta=chart.getDatasetMeta(0);
-            if(!meta.data[2])return;
-            const x=(meta.data[2].x+meta.data[3].x)/2;
-            const ctx2=chart.ctx;
-            ctx2.save();ctx2.strokeStyle='rgba(255,255,255,0.2)';ctx2.lineWidth=2;
-            ctx2.setLineDash([4,4]);ctx2.beginPath();
-            ctx2.moveTo(x,chart.chartArea.top);ctx2.lineTo(x,chart.chartArea.bottom);
-            ctx2.stroke();ctx2.restore();
-          }
-        },
-        y:{ticks:{color:'#8fa3c7',font:{size:11},callback:v=>v.toFixed(0)+'%'},grid:{color:'rgba(140,180,240,0.06)'},max:65,min:0}
-      }
-    }
-  });
-}
-
-// SORT STATE
-const sortState={a:{col:'dtto',dir:1}, b:{col:'dtto',dir:1}};
-
-// TABLE A (3 bloques, sortable)
-function renderTableA(){
-  const prev=document.getElementById('scen-a-preview');prev.innerHTML='';
-  [1,2,3,4,5].forEach((b,i)=>{if(!(blocks[b]||[]).length)return;
-    const nm=document.getElementById('block-name-'+b).value||'B'+b;const tag=document.createElement('span');
-    tag.style.cssText=`padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;background:${BC[i]}22;border:1px solid ${BC[i]};color:${BC[i]}`;
-    tag.textContent=nm+': '+blocks[b].map(p=>PL[p]||p).join('+');prev.appendChild(tag);
-  });
-
-  const y=getY();const rows=y=='all'?D:D.filter(r=>r.y==+y);
-  const ds=dList(y=='all'?null:+y);
-
-  // Build data rows — ventaja del bloque que contiene MORENA vs segundo bloque
-  let rowData=ds.map(d=>{
-    const dr=rows.filter(r=>r.d==d);const tot=dr.reduce((s,r)=>s+r.T,0);
-    const bv=[1,2,3].map(b=>sumB(dr,blocks[b]));
-    const mx=Math.max(...bv),wi=bv.indexOf(mx);
-    // Bloque de MORENA = el que contiene 'MORENA'
-    const morenaBlk=[1,2,3].findIndex(b=>blocks[b].includes('MORENA'));
-    const morenaV=morenaBlk>=0?bv[morenaBlk]:0;
-    const othersV=bv.filter((_,i)=>i!==morenaBlk);
-    const maxOther=othersV.length?Math.max(...othersV):0;
-    const ventaja=morenaV-maxOther;
-    const ventajaPct=tot?(ventaja/tot*100).toFixed(1):0;
-    return{d,tot,bv,mx,wi,ventaja,ventajaPct};
-  });
-
-  // Sort
-  const s=sortState.a;
-  if(s.col==='dtto') rowData.sort((a,b)=>s.dir*(a.d-b.d));
-  else if(s.col==='ventaja') rowData.sort((a,b)=>s.dir*(b.ventaja-a.ventaja));
-
-  // Header
-  const headTr=document.querySelector('#scen-head-a tr');
-  const mkTh=(label,col,side)=>{
-    const active=sortState[side].col===col;
-    const dir=sortState[side].dir;
-    const arrow=active?(dir===1?'▲':'▼'):'⇅';
-    return `<th style="cursor:pointer;user-select:none;${active?'color:var(--gold)':''}" onclick="toggleSort('${side}','${col}')">${label} <span style="font-size:8px;opacity:.7">${arrow}</span></th>`;
-  };
-  headTr.innerHTML=mkTh('DTTO','dtto','a');
-  [1,2,3,4,5].forEach((b,i)=>{
-    const nm=document.getElementById('block-name-'+b)?.value||'B'+b;
-    headTr.innerHTML+=`<th style="color:${BC[i]};max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px" title="${nm}">${nm}</th>`;
-  });
-  headTr.innerHTML+=mkTh('VEN.MORENA','ventaja','a')+'<th>GANADOR</th>';
-
-  const tbody=document.querySelector('#scen-table-a tbody');tbody.innerHTML='';
-  let tots=[0,0,0,0,0],totVentaja=0;
-  rowData.forEach(({d,tot,bv,mx,wi,ventaja,ventajaPct})=>{
-    bv.forEach((v,i)=>tots[i]+=v); totVentaja+=ventaja;
-    const tr=document.createElement('tr');
-    tr.style.cursor='pointer';
-    tr.addEventListener('click',()=>selectDistrict(d));
-    tr.addEventListener('mouseenter',()=>tr.style.background='rgba(0,240,255,0.05)');
-    tr.addEventListener('mouseleave',()=>tr.style.background='');
-    let c=`<td>${String(d).padStart(2,'0')}</td>`;
-    bv.forEach((v,i)=>{const p=tot?(v/tot*100).toFixed(1):0;c+=`<td class="${v===mx?'win':''}" style="${v===mx?'color:'+BC[i]:''}">${fmt(v)} <span style="font-size:9px;color:var(--text-tri)">${p}%</span></td>`;});
-    const vColA=ventaja>=0?'var(--green)':'var(--red)';const vSignA=ventaja>=0?'+':'';
-    c+=`<td style="color:${vColA};font-weight:700">${vSignA}${fmt(ventaja)}<br><span style="font-size:9px;opacity:.8">${vSignA}${ventajaPct}%</span></td>`;
-    const nmA=document.getElementById('block-name-'+(wi+1))?.value||'B'+(wi+1);c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${nmA}</td>`;
-    tr.innerHTML=c;tbody.appendChild(tr);
-  });
-  const tr=document.createElement('tr');let c=`<td>TOTAL</td>`;
-  const gt=tots.reduce((s,v)=>s+v,0);
-  tots.forEach((v,i)=>{const p=gt?(v/gt*100).toFixed(1):0;c+=`<td style="color:${BC[i]}">${fmt(v)}·${p}%</td>`;});
-  const tvColA=totVentaja>=0?'var(--green)':'var(--red)';
-  c+=`<td style="color:${tvColA}">${totVentaja>=0?'+':''}${fmt(totVentaja)}</td>`;
-  const wi=tots.indexOf(Math.max(...tots));
-  const nmAT=document.getElementById('block-name-'+(wi+1))?.value||'B'+(wi+1);c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${nmAT}</td>`;
-  tr.innerHTML=c;tbody.appendChild(tr);
-}
-
-// TABLE B (5 bloques, sortable)
-function renderTableB(){
-  const y=getY();const rows=y=='all'?D:D.filter(r=>r.y==+y);
-  const ds=dList(y=='all'?null:+y);
-
-  // Build data rows — ventaja del bloque con MORENA vs segundo bloque
-  let rowData=ds.map(d=>{
-    const dr=rows.filter(r=>r.d==d);const tot=dr.reduce((s,r)=>s+r.T,0);
-    const bv=[1,2,3,4,5].map(b=>sumB(dr,blocksB[b]||[]));
-    const mx=Math.max(...bv),wi=bv.indexOf(mx);
-    const morenaBlk=[1,2,3,4,5].findIndex(b=>(blocksB[b]||[]).includes('MORENA'));
-    const morenaV=morenaBlk>=0?bv[morenaBlk]:0;
-    const othersV=bv.filter((_,i)=>i!==morenaBlk);
-    const maxOther=othersV.length?Math.max(...othersV):0;
-    const ventaja=morenaV-maxOther;
-    const ventajaPct=tot?(ventaja/tot*100).toFixed(1):0;
-    return{d,tot,bv,mx,wi,ventaja,ventajaPct};
-  });
-
-  // Sort
-  const s=sortState.b;
-  if(s.col==='dtto') rowData.sort((a,b)=>s.dir*(a.d-b.d));
-  else if(s.col==='ventaja') rowData.sort((a,b)=>s.dir*(b.ventaja-a.ventaja));
-
-  // Header
-  const headTr=document.querySelector('#scen-head-b tr');
-  const mkTh=(label,col,side)=>{
-    const active=sortState[side].col===col;
-    const dir=sortState[side].dir;
-    const arrow=active?(dir===1?'▲':'▼'):'⇅';
-    return `<th style="cursor:pointer;user-select:none;${active?'color:var(--gold)':''}" onclick="toggleSort('${side}','${col}')">${label} <span style="font-size:8px;opacity:.7">${arrow}</span></th>`;
-  };
-  headTr.innerHTML=mkTh('DTTO','dtto','b');
-  [1,2,3,4,5].forEach((b,i)=>{
-    const nm=document.getElementById('block-b-name-'+b)?.value||'B'+b;
-    headTr.innerHTML+=`<th style="color:${BC4[i]};max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px" title="${nm}">${nm}</th>`;
-  });
-  headTr.innerHTML+=mkTh('VEN.MORENA','ventaja','b')+'<th>GANADOR</th>';
-
-  const tbody=document.querySelector('#scen-table-b tbody');tbody.innerHTML='';
-  let tots=[0,0,0,0,0],totVentaja=0;
-  rowData.forEach(({d,tot,bv,mx,wi,ventaja,ventajaPct})=>{
-    bv.forEach((v,i)=>tots[i]+=v); totVentaja+=ventaja;
-    const tr=document.createElement('tr');
-    tr.style.cursor='pointer';
-    tr.addEventListener('click',()=>selectDistrict(d));
-    tr.addEventListener('mouseenter',()=>tr.style.background='rgba(0,240,255,0.05)');
-    tr.addEventListener('mouseleave',()=>tr.style.background='');
-    let c=`<td>${String(d).padStart(2,'0')}</td>`;
-    bv.forEach((v,i)=>{const p=tot?(v/tot*100).toFixed(1):0;c+=`<td class="${v===mx?'win':''}" style="${v===mx?'color:'+BC4[i]:''}">${fmt(v)} <span style="font-size:9px;color:var(--text-tri)">${p}%</span></td>`;});
-    const vColB=ventaja>=0?'var(--green)':'var(--red)';const vSignB=ventaja>=0?'+':'';
-    c+=`<td style="color:${vColB};font-weight:700">${vSignB}${fmt(ventaja)}<br><span style="font-size:9px;opacity:.8">${vSignB}${ventajaPct}%</span></td>`;
-    const nmB=document.getElementById('block-b-name-'+(wi+1))?.value||'B'+(wi+1);c+=`<td style="color:${BC4[wi]};font-weight:800">✅ ${nmB}</td>`;
-    tr.innerHTML=c;tbody.appendChild(tr);
-  });
-  const tr=document.createElement('tr');let c=`<td>TOTAL</td>`;
-  const gt=tots.reduce((s,v)=>s+v,0);
-  tots.forEach((v,i)=>{const p=gt?(v/gt*100).toFixed(1):0;c+=`<td style="color:${BC4[i]}">${fmt(v)}·${p}%</td>`;});
-  const tvColB=totVentaja>=0?'var(--green)':'var(--red)';
-  c+=`<td style="color:${tvColB}">${totVentaja>=0?'+':''}${fmt(totVentaja)}</td>`;
-  const wi=tots.indexOf(Math.max(...tots));
-  const nmBT=document.getElementById('block-b-name-'+(wi+1))?.value||'B'+(wi+1);c+=`<td style="color:${BC4[wi]};font-weight:800">✅ ${nmBT}</td>`;
-  tr.innerHTML=c;tbody.appendChild(tr);
-}
-
-function toggleSort(side,col){
-  if(sortState[side].col===col) sortState[side].dir*=-1;
-  else{sortState[side].col=col;sortState[side].dir=-1;}// default ventaja desc
-  if(side==='a')renderTableA();else renderTableB();
-}
-
-// MERGE (A=3 vs B=4)
-function toggleMerge(){
-  mergeVisible=!mergeVisible;
-  document.getElementById('merged-result').classList.toggle('show',mergeVisible);
-  document.getElementById('merge-btn').textContent=mergeVisible?'⊖ Ocultar Comparativa':'⊕ Comparar A vs B por Distrito';
-  if(mergeVisible)renderMerged();
-}
-function renderMerged(){
-  [1,2,3,4,5].forEach(b=>{const h=document.getElementById('mha'+b);if(h)h.textContent=(blocks[b]||[]).map(p=>PL[p]||p).join('+')||'(vacío)';});
-  [1,2,3,4,5].forEach(b=>{const h=document.getElementById('mhb'+b);if(h)h.textContent=(blocksB[b]||[]).map(p=>PL[p]||p).join('+')||'(vacío)';});
-  const y=getY();const rows=y=='all'?D:D.filter(r=>r.y==+y);
-  const ds=dList(y=='all'?null:+y);
-  const tbody=document.querySelector('#merged-table tbody');tbody.innerHTML='';
-  let same=0,diff=0;
-  ds.forEach(d=>{
-    const dr=rows.filter(r=>r.d==d);const tot=dr.reduce((s,r)=>s+r.T,0);
-    const av=[1,2,3,4,5].map(b=>sumB(dr,blocks[b]||[]));
-    const bv=[1,2,3,4,5].map(b=>sumB(dr,blocksB[b]||[]));
-    const wA=av.indexOf(Math.max(...av)),wB=bv.indexOf(Math.max(...bv));
-    const nmA=(blocks[wA+1]||[]).map(p=>PL[p]||p).join('+')||'A'+(wA+1);
-    const nmB=(blocksB[wB+1]||[]).map(p=>PL[p]||p).join('+')||'B'+(wB+1);
-    const ok=(wA===wB);if(ok)same++;else diff++;
-    const tr=document.createElement('tr');let c=`<td>${String(d).padStart(2,'0')}</td>`;
-    av.forEach((v,i)=>{const p=tot?(v/tot*100).toFixed(1):0;c+=`<td class="${i===wA?'win':''}" style="${i===wA?'color:'+BC[i]:''}">${fmt(v)}<br><span style="font-size:9px;color:var(--text-tri)">${p}%</span></td>`;});
-    c+=`<td style="color:${BC[wA]};font-weight:800">${nmA}</td>`;
-    bv.forEach((v,i)=>{const p=tot?(v/tot*100).toFixed(1):0;c+=`<td class="${i===wB?'win':''}" style="${i===wB?'color:'+BC4[i]:''}">${fmt(v)}<br><span style="font-size:9px;color:var(--text-tri)">${p}%</span></td>`;});
-    c+=`<td style="color:${BC4[wB]};font-weight:800">${nmB}</td>`;
-    c+=`<td style="font-weight:800;color:${ok?'var(--green)':'var(--red)'}">${ok?'🟢 Igual':'🔴 Distinto'}</td>`;
-    tr.innerHTML=c;tbody.appendChild(tr);
-  });
-  const tr=document.createElement('tr');tr.style.background='rgba(255,177,59,0.05)';
-  tr.innerHTML=`<td colspan="13" style="font-weight:700;color:var(--gold);text-align:center;padding:8px">Mismo ganador: <span style="color:var(--green)">${same}</span> distritos · Ganador diferente: <span style="color:var(--red)">${diff}</span> distritos</td>`;
-  tbody.appendChild(tr);
-}
-
-// SELECT DISTRICT FROM TABLE ROW
-function selectDistrict(d){
-  const sel=document.getElementById('filter-district');
-  // Toggle: if already this district, reset to all
-  sel.value=(sel.value==String(d))?'all':String(d);
-  refresh();
-  // Scroll to top
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-// DIPUTADOS GANADORES TABLE — respeta filtro de año
-function renderDiputados(){
-  const tbody=document.getElementById('dip-tbody');
-  const thead=document.getElementById('dip-thead');
-  if(!tbody||!thead)return;
-  const y=getY();
-  const yrs=y=='all'?[2018,2021,2024]:[+y];
-
-  // Rebuild header based on active years
-  thead.innerHTML='<tr><th style="width:60px;cursor:pointer" onclick="selectDistrict(\'all\')">DTTO</th>'
-    +yrs.map(yr=>`<th style="color:${yr===2024?'var(--gold)':yr===2021?'#aaa':'#888'}">${yr}${yr===2024?' · LXIV':yr===2021?' · LXIII':' · LXII'}</th>`).join('')
-    +'</tr>';
-
-  tbody.innerHTML='';
-  for(let d=1;d<=20;d++){
-    const activeDist=getDist();
-    const isActive=activeDist==String(d);
-    const tr=document.createElement('tr');
-    tr.style.cursor='pointer';
-    tr.style.transition='background .15s';
-    if(isActive) tr.style.background='rgba(255,177,59,0.08)';
-    tr.addEventListener('click',()=>selectDistrict(d));
-    tr.addEventListener('mouseenter',()=>{if(!isActive)tr.style.background='rgba(0,240,255,0.05)';});
-    tr.addEventListener('mouseleave',()=>{if(!isActive)tr.style.background='';});
-
-    let c=`<td style="font-weight:800;color:${isActive?'var(--gold)':'var(--cyan)'};text-align:center">${String(d).padStart(2,'0')}${isActive?' ◀':''}</td>`;
-    yrs.forEach(yr=>{
-      const dip=DIPS[yr]?DIPS[yr][d]:null;
-      if(!dip){c+=`<td style="color:var(--text-tri);font-style:italic">—</td>`;return;}
-      const pColor=PC[dip.partido]||'#888';
-      c+=`<td style="background:${pColor}${yr===2024?'18':'0d'}">
-        <div style="display:flex;align-items:center;gap:6px;">
-          <span style="width:6px;height:6px;border-radius:50%;background:${pColor};flex-shrink:0;display:inline-block"></span>
-          <div>
-            <div style="font-weight:700;color:${pColor};font-size:10px">${dip.nombre}</div>
-            <div style="font-size:9px;color:${pColor};opacity:.7">${dip.partido}</div>
-          </div>
-        </div>
-      </td>`;
-    });
-    tr.innerHTML=c;tbody.appendChild(tr);
-  }
-}
-['1','2','3','4','5'].forEach(b=>{
-  document.getElementById('block-name-'+b).addEventListener('input',()=>{bNames[+b]=document.getElementById('block-name-'+b).value;refresh();renderCompChart();});
-});
-['1','2','3','4','5'].forEach(b=>{
-  const el=document.getElementById('block-b-name-'+b);
-  if(el)el.addEventListener('input',()=>{bNamesB[+b]=el.value;refresh();renderCompChart();});
-});
-document.getElementById('scen-name-b').addEventListener('input',()=>{if(mergeVisible)renderMerged();});
-
 // DOWNLOAD XLS — generado dinámicamente con SheetJS desde los datos del dashboard
 function downloadXLS(){
   if(typeof XLSX==='undefined'){alert('Cargando librería, intenta de nuevo en un momento');return;}
@@ -1155,8 +609,616 @@ function downloadXLS(){
 
   XLSX.writeFile(wb,'datos_electorales_jalisco.xlsx');
 }
+// ── COLORS ────────────────────────────────────────────────────────────────────
+const BC=['#e83030','#ff8c00','#2266cc','#00b496','#ff50b4'];
+const PC={PAN:'#1565c0',PRI:'#c62828',PRD:'#f9a825',PVEM:'#2e7d32',PT:'#b71c1c',MC:'#e65100',MORENA:'#6a0000',HAGAMOS:'#6a1b9a',FUTURO:'#00838f',PES:'#4527a0'};
+const PL={PAN:'PAN',PRI:'PRI',PRD:'PRD',PVEM:'PVEM',PT:'PT',MC:'MC',MORENA:'MORENA',HAGAMOS:'HAGAMOS',FUTURO:'FUTURO',PES:'PES'};
 
-// BOOT
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+const fmt=n=>Math.round(n).toLocaleString('es-MX');
+const pct=(v,t)=>t?(v/t*100).toFixed(1):0;
+const sumP=(rows,p)=>rows.reduce((s,r)=>s+(r[p]||0),0);
+const sumB=(rows,ps)=>(ps||[]).reduce((s,p)=>s+sumP(rows,p),0);
+const getY=()=>document.getElementById('filter-year').value;
+const getDist=()=>document.getElementById('filter-district').value;
+const filtRows=()=>D.filter(r=>(getY()==='all'||r.y===+getY())&&(getDist()==='all'||r.d===+getDist()));
+const dList=y=>{const src=y?D.filter(r=>r.y===y):D;return[...new Set(src.map(r=>r.d))].sort((a,b)=>a-b)};
+const partiesFor=y=>{
+  const b=['PAN','PRI','PRD','PVEM','PT','MC','MORENA'];
+  if(y==='all'||y===2018)b.push('PES');
+  if(y==='all'||y===2021||y===2024){b.push('HAGAMOS');b.push('FUTURO');}
+  return b;
+};
+// Dynamic block name = parties joined by +, or fallback label
+const blockLabel=(b,isB=false)=>{
+  const arr=isB?(blocksB[b]||[]):(blocks[b]||[]);
+  return arr.length?arr.map(p=>PL[p]||p).join('+'):(isB?`B${b}`:`B${b}`);
+};
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let blocks={1:[],2:[],3:[],4:[],5:[]};
+let blocksB={1:[],2:[],3:[],4:[],5:[]};
+let histMode='bloques',histChart=null,compChart=null,mergeVisible=false;
+let sortStateA={col:'dtto',dir:1},sortStateB={col:'dtto',dir:1},sortStateP={col:'dtto',dir:1};
+let activeTab='a'; // mobile tab
+
+// ── MOBILE TABS ───────────────────────────────────────────────────────────────
+function showTab(t){
+  activeTab=t;
+  document.getElementById('tab-a').classList.toggle('on',t==='a');
+  document.getElementById('tab-b').classList.toggle('on',t==='b');
+  const pa=document.getElementById('scen-panel-a');
+  const pb=document.getElementById('scen-panel-b');
+  if(window.innerWidth<=860){
+    pa.style.display=t==='a'?'block':'none';
+    pb.style.display=t==='b'?'block':'none';
+  }else{
+    pa.style.display='';pb.style.display='';
+  }
+}
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>860){
+    document.getElementById('scen-panel-a').style.display='';
+    document.getElementById('scen-panel-b').style.display='';
+  }else showTab(activeTab);
+});
+
+// ── CHIP FACTORY ──────────────────────────────────────────────────────────────
+function mkChip(p,onRemove){
+  const c=document.createElement('span');
+  c.className='chip';c.dataset.party=p;c.setAttribute('draggable','true');
+  c.style.borderColor=PC[p]||'#555';
+  c.style.background=(PC[p]||'#333')+'28';
+  c.style.color=PC[p]||'#fff';
+  c.textContent=PL[p]||p;
+  if(onRemove){
+    const rm=document.createElement('span');rm.className='chip-rm';rm.textContent='×';
+    rm.addEventListener('click',e=>{e.stopPropagation();onRemove();});
+    c.appendChild(rm);
+  }
+  return c;
+}
+
+// ── DRAG STATE ────────────────────────────────────────────────────────────────
+let dragParty=null,dragFrom=null,dragIsB=false;
+
+function makeDraggable(chip,party,from,isB){
+  chip.addEventListener('dragstart',e=>{
+    dragParty=party;dragFrom=from;dragIsB=isB;
+    chip.classList.add('dragging');
+    e.dataTransfer.effectAllowed='move';
+  });
+  chip.addEventListener('dragend',()=>chip.classList.remove('dragging'));
+}
+
+function setupZone(el,zoneIdx,isB){
+  el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('over');});
+  el.addEventListener('dragleave',()=>el.classList.remove('over'));
+  el.addEventListener('drop',e=>{
+    e.preventDefault();el.classList.remove('over');
+    if(dragParty===null)return;
+    const sameType=dragIsB===isB;
+    // Remove from source
+    if(dragFrom!==null){
+      const src=dragIsB?blocksB:blocks;
+      if(dragFrom==='pool'){/* already not in any block */}
+      else src[dragFrom]=src[dragFrom].filter(x=>x!==dragParty);
+    }
+    // If crossing A↔B, also remove from other side to avoid duplication
+    if(!sameType){
+      if(isB){blocks[1]=blocks[1].filter(x=>x!==dragParty);blocks[2]=blocks[2].filter(x=>x!==dragParty);blocks[3]=blocks[3].filter(x=>x!==dragParty);blocks[4]=blocks[4].filter(x=>x!==dragParty);blocks[5]=blocks[5].filter(x=>x!==dragParty);}
+      else{blocksB[1]=blocksB[1].filter(x=>x!==dragParty);blocksB[2]=blocksB[2].filter(x=>x!==dragParty);blocksB[3]=blocksB[3].filter(x=>x!==dragParty);blocksB[4]=blocksB[4].filter(x=>x!==dragParty);blocksB[5]=blocksB[5].filter(x=>x!==dragParty);}
+    }
+    const dest=isB?blocksB:blocks;
+    if(!(dest[zoneIdx]||[]).includes(dragParty)){
+      if(!dest[zoneIdx])dest[zoneIdx]=[];
+      dest[zoneIdx].push(dragParty);
+    }
+    dragParty=null;dragFrom=null;
+    renderAll();
+  });
+}
+
+// ── POOL DROP ─────────────────────────────────────────────────────────────────
+function setupPoolDrop(poolEl,isB){
+  poolEl.addEventListener('dragover',e=>{e.preventDefault();poolEl.style.borderColor='rgba(0,240,255,0.4)';});
+  poolEl.addEventListener('dragleave',()=>poolEl.style.borderColor='');
+  poolEl.addEventListener('drop',e=>{
+    e.preventDefault();poolEl.style.borderColor='';
+    if(dragParty===null)return;
+    if(dragFrom!==null&&dragFrom!=='pool'){
+      const src=dragIsB?blocksB:blocks;
+      src[dragFrom]=src[dragFrom].filter(x=>x!==dragParty);
+    }
+    dragParty=null;dragFrom=null;
+    renderAll();
+  });
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+(function init(){
+  const ds=document.getElementById('filter-district');
+  for(let i=1;i<=20;i++){const o=document.createElement('option');o.value=i;o.textContent='Distrito '+String(i).padStart(2,'0');ds.appendChild(o);}
+  ds.addEventListener('change',refresh);
+  document.getElementById('filter-year').addEventListener('change',()=>refresh());
+
+  // Setup all zone drag-drop for A
+  for(let b=1;b<=5;b++){
+    const z=document.getElementById('zone-'+b);
+    if(z)setupZone(z,b,false);
+  }
+  // Setup all zone drag-drop for B
+  for(let b=1;b<=5;b++){
+    const z=document.getElementById('zone-b-'+b);
+    if(z)setupZone(z,b,true);
+  }
+  setupPoolDrop(document.getElementById('pool-a'),false);
+  setupPoolDrop(document.getElementById('pool-b'),true);
+
+  // Comp chart district
+  const cc=document.getElementById('comp-chart-district');
+  for(let i=1;i<=20;i++){const o=document.createElement('option');o.value=i;o.textContent='Distrito '+String(i).padStart(2,'0');cc.appendChild(o);}
+  cc.addEventListener('change',renderCompChart);
+})();
+
+// ── RENDER POOLS & ZONES ──────────────────────────────────────────────────────
+function renderBuilderA(){
+  const y=getY();
+  const pts=partiesFor(y==='all'?'all':+y);
+  const inBlocks=[].concat(...[1,2,3,4,5].map(b=>blocks[b]||[]));
+  const pool=document.getElementById('pool-a');
+  pool.innerHTML='<span class="pool-lbl">Partidos sin asignar</span>';
+  pts.forEach(p=>{
+    if(inBlocks.includes(p))return;
+    const chip=mkChip(p,null);
+    makeDraggable(chip,p,'pool',false);
+    pool.appendChild(chip);
+  });
+  for(let b=1;b<=5;b++){
+    const chipsEl=document.getElementById('chips-'+b);
+    if(!chipsEl)continue;
+    chipsEl.innerHTML='';
+    (blocks[b]||[]).forEach(p=>{
+      const chip=mkChip(p,()=>{blocks[b]=blocks[b].filter(x=>x!==p);renderAll();});
+      makeDraggable(chip,p,b,false);
+      chipsEl.appendChild(chip);
+    });
+    // Update zone name dynamically
+    const nm=document.getElementById('block-name-'+b);
+    if(nm)nm.textContent=blockLabel(b,false);
+  }
+}
+
+function renderBuilderB(){
+  const y=getY();
+  const pts=partiesFor(y==='all'?'all':+y);
+  const inBlocks=[].concat(...[1,2,3,4,5].map(b=>blocksB[b]||[]));
+  const pool=document.getElementById('pool-b');
+  pool.innerHTML='<span class="pool-lbl">Partidos sin asignar</span>';
+  pts.forEach(p=>{
+    if(inBlocks.includes(p))return;
+    const chip=mkChip(p,null);
+    makeDraggable(chip,p,'pool',true);
+    pool.appendChild(chip);
+  });
+  for(let b=1;b<=5;b++){
+    const chipsEl=document.getElementById('chips-b-'+b);
+    if(!chipsEl)continue;
+    chipsEl.innerHTML='';
+    (blocksB[b]||[]).forEach(p=>{
+      const chip=mkChip(p,()=>{blocksB[b]=blocksB[b].filter(x=>x!==p);renderAll();});
+      makeDraggable(chip,p,b,true);
+      chipsEl.appendChild(chip);
+    });
+    const nm=document.getElementById('block-b-name-'+b);
+    if(nm)nm.textContent=blockLabel(b,true);
+  }
+}
+
+// ── PRESETS ───────────────────────────────────────────────────────────────────
+function applyPreset(t){
+  if(t==='4t'){blocks={1:['MORENA','PT','PVEM','HAGAMOS','FUTURO'],2:['MC'],3:['PAN','PRI','PRD'],4:[],5:[]};}
+  else{blocks={1:['MORENA'],2:['MC'],3:['PAN'],4:[],5:[]};}
+  renderAll();
+}
+function clearBlocks(){blocks={1:[],2:[],3:[],4:[],5:[]};renderAll();}
+function applyPresetB(t){
+  if(t==='default'){blocksB={1:['MORENA','PT'],2:['MC','PVEM'],3:['PAN'],4:['PRI','PRD','HAGAMOS','FUTURO'],5:[]};}
+  else if(t==='4t'){blocksB={1:['MORENA','PT','PVEM','HAGAMOS','FUTURO'],2:['MC'],3:['PAN','PRI','PRD'],4:[],5:[]};}
+  else{blocksB={1:['MORENA'],2:['MC'],3:['PAN'],4:[],5:[]};}
+  renderAll();
+}
+function clearBlocksB(){blocksB={1:[],2:[],3:[],4:[],5:[]};renderAll();}
+
+// ── MASTER REFRESH ────────────────────────────────────────────────────────────
+function renderAll(){
+  const rows=filtRows();
+  renderBuilderA();
+  renderBuilderB();
+  updBlockKPIs(rows);
+  updPartKPIs(rows);
+  renderPartyIndiv(rows);
+  renderHist();
+  renderPartyTable();
+  renderTableA();
+  renderTableB();
+  renderCompChart();
+  renderDiputados();
+  if(mergeVisible)renderMerged();
+}
+function refresh(){renderAll();}
+
+// ── KPIs ──────────────────────────────────────────────────────────────────────
+function updBlockKPIs(rows){
+  const tot=rows.reduce((s,r)=>s+r.T,0);
+  const kpi=document.getElementById('kpi-b-row');kpi.innerHTML='';
+  const bar=document.getElementById('dist-bar');bar.innerHTML='';
+  const leg=document.getElementById('dist-legend');leg.innerHTML='';
+  let na=tot;
+  [1,2,3,4,5].forEach((b,i)=>{
+    const v=sumB(rows,blocks[b]||[]);
+    na-=v;
+    const p=pct(v,tot);
+    const col=BC[i];
+    const nm=blockLabel(b,false);
+    // kpi card
+    const c=document.createElement('div');c.className='kpi';
+    c.innerHTML=`<div class="kpi-lbl" style="color:${col}" title="${nm}">${nm}</div><div class="kpi-val" style="color:${col}">${p}%</div><div class="kpi-sub">${fmt(v)} votos</div>`;
+    kpi.appendChild(c);
+    // dist bar seg
+    const w=tot?v/tot*100:0;
+    if(w>0){const seg=document.createElement('div');seg.className='dist-seg';seg.style.cssText=`width:${w}%;background:${col};flex-shrink:0`;seg.textContent=p+'%';bar.appendChild(seg);}
+    // legend
+    const li=document.createElement('div');li.className='leg-item';
+    li.innerHTML=`<div class="leg-dot" style="background:${col}"></div><span title="${nm}">${nm}·${fmt(v)} (${p}%)</span>`;
+    leg.appendChild(li);
+    // update zone stats
+    const pEl=document.getElementById('block-pct-'+b);
+    const vEl=document.getElementById('block-votes-'+b);
+    if(pEl)pEl.textContent=p+'%';
+    if(vEl)vEl.textContent=fmt(v)+' votos';
+  });
+}
+function updPartKPIs(rows){
+  const tot=rows.reduce((s,r)=>s+r.T,0);
+  const y=getY();const pts=partiesFor(y==='all'?'all':+y);
+  const kpi=document.getElementById('kpi-p-row');kpi.innerHTML='';
+  pts.map(p=>({p,v:sumP(rows,p)})).sort((a,b)=>b.v-a.v).forEach(({p,v})=>{
+    const pt=pct(v,tot);const c=document.createElement('div');c.className='kpi';
+    c.innerHTML=`<div class="kpi-lbl" style="color:${PC[p]}">${PL[p]||p}</div><div class="kpi-val" style="color:${PC[p]}">${pt}%</div><div class="kpi-sub">${fmt(v)}</div>`;
+    kpi.appendChild(c);
+  });
+}
+function renderPartyIndiv(rows){
+  const tot=rows.reduce((s,r)=>s+r.T,0);
+  const y=getY();const pts=partiesFor(y==='all'?'all':+y);
+  const sorted=pts.map(p=>({p,v:sumP(rows,p)})).sort((a,b)=>b.v-a.v);
+  const maxV=sorted[0]?sorted[0].v:1;
+  const container=document.getElementById('party-indiv-row');container.innerHTML='';
+  sorted.forEach(({p,v},i)=>{
+    const pc2=pct(v,tot);const bw=maxV?Math.round(v/maxV*100):0;
+    const c=document.createElement('div');c.className='pcard';c.style.borderColor=PC[p]||'#555';
+    c.innerHTML=`<span class="pcard-rank">#${i+1}</span><div class="pcard-name" style="color:${PC[p]}">${PL[p]||p}</div><div class="pcard-pct" style="color:${PC[p]}">${pc2}%</div><div class="pcard-votes">${fmt(v)} votos</div><div class="pcard-bar" style="width:${bw}%;background:${PC[p]}"></div>`;
+    container.appendChild(c);
+  });
+}
+
+// ── HIST MODE ─────────────────────────────────────────────────────────────────
+function setHistMode(m){
+  histMode=m;
+  document.getElementById('hbtn-b').classList.toggle('on',m==='bloques');
+  document.getElementById('hbtn-p').classList.toggle('on',m==='partidos');
+  document.getElementById('kpi-b-sec').style.display=m==='bloques'?'':'none';
+  document.getElementById('kpi-p-sec').style.display=m==='partidos'?'':'none';
+  renderHist();
+}
+function renderHist(){
+  const dist=getDist();
+  const getYR=y=>dist==='all'?D.filter(r=>r.y===y):D.filter(r=>r.y===y&&r.d===+dist);
+  const yrs=[2018,2021,2024];const al=['ff','bb','77'];
+  let labels,datasets;
+  if(histMode==='bloques'){
+    const ab=[1,2,3,4,5].filter(b=>(blocks[b]||[]).length>0);
+    if(!ab.length){labels=['(sin bloques)'];datasets=[];}
+    else{
+      labels=ab.map(b=>blockLabel(b,false));
+      datasets=yrs.map((y,i)=>{
+        const yr=getYR(y),tot=yr.reduce((s,r)=>s+r.T,0);
+        return{label:String(y),data:ab.map(b=>tot?sumB(yr,blocks[b]||[])/tot*100:0),
+          backgroundColor:ab.map(b=>BC[b-1]+al[i]),borderColor:ab.map(b=>BC[b-1]),borderWidth:1,borderRadius:3};
+      });
+    }
+  }else{
+    const y=getY();const pts=partiesFor(y==='all'?'all':+y);labels=pts.map(p=>PL[p]||p);
+    const ys=y==='all'?yrs:[+y];
+    datasets=ys.map((yr,i)=>{
+      const d=getYR(yr),tot=d.reduce((s,r)=>s+r.T,0);
+      return{label:String(yr),data:pts.map(p=>tot?sumP(d,p)/tot*100:0),
+        backgroundColor:pts.map(p=>(PC[p]||'#555')+al[i]),borderColor:pts.map(p=>PC[p]||'#555'),borderWidth:1,borderRadius:3};
+    });
+  }
+  const ctx=document.getElementById('hist-canvas').getContext('2d');
+  if(histChart)histChart.destroy();
+  histChart=new Chart(ctx,{type:'bar',data:{labels,datasets},options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:'#8fa3c7',font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+'%'}}},
+    scales:{x:{ticks:{color:'#8fa3c7',font:{size:10}},grid:{color:'rgba(140,180,240,0.05)'}},
+      y:{ticks:{color:'#8fa3c7',font:{size:10},callback:v=>v+'%'},grid:{color:'rgba(140,180,240,0.05)'},suggestedMax:60,min:0}}}});
+}
+
+// ── PARTY TABLE ───────────────────────────────────────────────────────────────
+function renderPartyTable(){
+  const y=getY();const rows=y==='all'?D:D.filter(r=>r.y===+y);
+  const pts=partiesFor(y==='all'?'all':+y);
+  const ds=dList(y==='all'?null:+y);
+  const headEl=document.getElementById('party-head-main');
+  const tbody=document.querySelector('#party-table-main tbody');
+  if(!headEl||!tbody)return;
+  const sp=sortStateP;
+  const mkTh=(lbl,col)=>{
+    const a=sp.col===col;const arr=a?(sp.dir===1?'▲':'▼'):'⇅';
+    return`<th class="sortable${a?' sorted':''}" style="${a?'color:var(--gold)':''}" onclick="sortPartyTable('${col}')">${lbl} <span style="font-size:8px;opacity:.7">${arr}</span></th>`;
+  };
+  let rowData=ds.map(d=>{
+    const dr=rows.filter(r=>r.d===d);const tot=dr.reduce((s,r)=>s+r.T,0);
+    const pv={};pts.forEach(p=>{pv[p]=sumP(dr,p);});
+    const mv=pv['MORENA']||0;
+    const maxOther=Math.max(0,...pts.filter(p=>p!=='MORENA').map(p=>pv[p]||0));
+    const ventaja=mv-maxOther;
+    const mx=Math.max(...pts.map(p=>pv[p]));
+    const winner=pts.find(p=>pv[p]===mx)||'';
+    return{d,tot,pv,mx,winner,ventaja,vPct:pct(ventaja,tot)};
+  });
+  if(sp.col==='dtto')rowData.sort((a,b)=>sp.dir*(a.d-b.d));
+  else if(sp.col==='ventaja')rowData.sort((a,b)=>sp.dir*(b.ventaja-a.ventaja));
+
+  const htr=document.createElement('tr');
+  htr.innerHTML=mkTh('DTTO','dtto');
+  pts.forEach(p=>{const th=document.createElement('th');th.style.color=PC[p]||'#fff';th.textContent=PL[p]||p;htr.appendChild(th);});
+  htr.innerHTML+=mkTh('VEN.MORENA','ventaja')+'<th>GANADOR</th>';
+  headEl.innerHTML='';headEl.appendChild(htr);
+  tbody.innerHTML='';
+  const totals={};pts.forEach(p=>totals[p]=0);let totV=0;
+  rowData.forEach(({d,tot,pv,mx,winner,ventaja,vPct})=>{
+    pts.forEach(p=>totals[p]+=(pv[p]||0));totV+=ventaja;
+    const tr=document.createElement('tr');tr.className='clickable'+(getDist()===String(d)?' active-dist':'');
+    tr.addEventListener('click',()=>selectDistrict(d));
+    let c=`<td>${String(d).padStart(2,'0')}</td>`;
+    pts.forEach(p=>{const v=pv[p]||0;const isW=p===winner;c+=`<td class="${isW?'win':''}" style="color:${isW?PC[p]:'var(--text1)'}">${fmt(v)}<br><span style="font-size:9px;opacity:.7">${pct(v,tot)}%</span></td>`;});
+    const vc=ventaja>=0?'var(--green)':'var(--red)';const vs=ventaja>=0?'+':'';
+    c+=`<td class="${ventaja>=0?'pos':'neg'}">${vs}${fmt(ventaja)}<br><span style="font-size:9px">${vs}${vPct}%</span></td>`;
+    c+=`<td style="color:${PC[winner]||'#fff'};font-weight:800">✅ ${PL[winner]||winner}</td>`;
+    tr.innerHTML=c;tbody.appendChild(tr);
+  });
+  const gt=pts.reduce((s,p)=>s+totals[p],0);const vt=totV>=0?'var(--green)':'var(--red)';
+  const mxT=Math.max(...pts.map(p=>totals[p]));const winT=pts.find(p=>totals[p]===mxT)||'';
+  const tr=document.createElement('tr');tr.className='total-row';
+  let c='<td>TOTAL</td>';
+  pts.forEach(p=>{const v=totals[p];c+=`<td style="color:${PC[p]};font-weight:700">${fmt(v)}·${pct(v,gt)}%</td>`;});
+  c+=`<td style="color:${vt}">${totV>=0?'+':''}${fmt(totV)}</td>`;
+  c+=`<td style="color:${PC[winT]||'#fff'};font-weight:800">✅ ${PL[winT]||winT}</td>`;
+  tr.innerHTML=c;tbody.appendChild(tr);
+}
+function sortPartyTable(col){
+  if(sortStateP.col===col)sortStateP.dir*=-1;else{sortStateP.col=col;sortStateP.dir=-1;}
+  renderPartyTable();
+}
+
+// ── TABLE A ───────────────────────────────────────────────────────────────────
+function renderTableA(){
+  // Preview tags
+  const prev=document.getElementById('scen-a-preview');prev.innerHTML='';
+  [1,2,3,4,5].forEach((b,i)=>{
+    if(!(blocks[b]||[]).length)return;
+    const nm=blockLabel(b,false);
+    const tag=document.createElement('span');tag.className='preview-tag';
+    tag.style.cssText=`background:${BC[i]}20;border:1px solid ${BC[i]};color:${BC[i]}`;
+    tag.textContent=nm;prev.appendChild(tag);
+  });
+  const y=getY();const rows=y==='all'?D:D.filter(r=>r.y===+y);
+  const ds=dList(y==='all'?null:+y);
+  const ss=sortStateA;
+  let rowData=ds.map(d=>{
+    const dr=rows.filter(r=>r.d===d);const tot=dr.reduce((s,r)=>s+r.T,0);
+    const bv=[1,2,3,4,5].map(b=>sumB(dr,blocks[b]||[]));
+    const mx=Math.max(...bv),wi=bv.indexOf(mx);
+    const mBlk=[1,2,3,4,5].findIndex(b=>(blocks[b]||[]).includes('MORENA'));
+    const mv=mBlk>=0?bv[mBlk]:0;
+    const maxO=Math.max(0,...bv.filter((_,i)=>i!==mBlk));
+    const ventaja=mv-maxO;
+    return{d,tot,bv,mx,wi,ventaja,vPct:pct(ventaja,tot)};
+  });
+  if(ss.col==='dtto')rowData.sort((a,b)=>ss.dir*(a.d-b.d));
+  else rowData.sort((a,b)=>ss.dir*(b.ventaja-a.ventaja));
+
+  const mkTh=(lbl,col,side)=>{
+    const a=ss.col===col;const arr=a?(ss.dir===1?'▲':'▼'):'⇅';
+    return`<th class="sortable" style="${a?'color:var(--gold)':''}" onclick="sortTable('${side}','${col}')">${lbl} <span style="font-size:8px;opacity:.7">${arr}</span></th>`;
+  };
+  const ht=document.querySelector('#scen-head-a tr');ht.innerHTML=mkTh('DTTO','dtto','a');
+  [1,2,3,4,5].forEach((b,i)=>{
+    const nm=blockLabel(b,false);
+    ht.innerHTML+=`<th style="color:${BC[i]};max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${nm}">${nm}</th>`;
+  });
+  ht.innerHTML+=mkTh('VEN.MORENA','ventaja','a')+'<th>GANADOR</th>';
+
+  const tbody=document.querySelector('#scen-table-a tbody');tbody.innerHTML='';
+  const tots=[0,0,0,0,0];let totV=0;
+  rowData.forEach(({d,tot,bv,mx,wi,ventaja,vPct})=>{
+    bv.forEach((v,i)=>tots[i]+=v);totV+=ventaja;
+    const tr=document.createElement('tr');tr.className='clickable'+(getDist()===String(d)?' active-dist':'');
+    tr.addEventListener('click',()=>selectDistrict(d));
+    let c=`<td>${String(d).padStart(2,'0')}</td>`;
+    bv.forEach((v,i)=>{const p=pct(v,tot);c+=`<td class="${v===mx?'win':''}" style="${v===mx?'color:'+BC[i]:'color:var(--text1)'}">${fmt(v)}<br><span style="font-size:9px;opacity:.7">${p}%</span></td>`;});
+    const vc=ventaja>=0?'var(--green)':'var(--red)';const vs=ventaja>=0?'+':'';
+    c+=`<td class="${ventaja>=0?'pos':'neg'}">${vs}${fmt(ventaja)}<br><span style="font-size:9px">${vs}${vPct}%</span></td>`;
+    c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${blockLabel(wi+1,false)}</td>`;
+    tr.innerHTML=c;tbody.appendChild(tr);
+  });
+  const tr=document.createElement('tr');tr.className='total-row';
+  const gt=tots.reduce((s,v)=>s+v,0);let c='<td>TOTAL</td>';
+  tots.forEach((v,i)=>{c+=`<td style="color:${BC[i]}">${fmt(v)}·${pct(v,gt)}%</td>`;});
+  const vc=totV>=0?'var(--green)':'var(--red)';
+  c+=`<td style="color:${vc}">${totV>=0?'+':''}${fmt(totV)}</td>`;
+  const wi=tots.indexOf(Math.max(...tots));
+  c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${blockLabel(wi+1,false)}</td>`;
+  tr.innerHTML=c;tbody.appendChild(tr);
+}
+
+// ── TABLE B ───────────────────────────────────────────────────────────────────
+function renderTableB(){
+  const y=getY();const rows=y==='all'?D:D.filter(r=>r.y===+y);
+  const ds=dList(y==='all'?null:+y);
+  const ss=sortStateB;
+  let rowData=ds.map(d=>{
+    const dr=rows.filter(r=>r.d===d);const tot=dr.reduce((s,r)=>s+r.T,0);
+    const bv=[1,2,3,4,5].map(b=>sumB(dr,blocksB[b]||[]));
+    const mx=Math.max(...bv),wi=bv.indexOf(mx);
+    const mBlk=[1,2,3,4,5].findIndex(b=>(blocksB[b]||[]).includes('MORENA'));
+    const mv=mBlk>=0?bv[mBlk]:0;
+    const maxO=Math.max(0,...bv.filter((_,i)=>i!==mBlk));
+    const ventaja=mv-maxO;
+    return{d,tot,bv,mx,wi,ventaja,vPct:pct(ventaja,tot)};
+  });
+  if(ss.col==='dtto')rowData.sort((a,b)=>ss.dir*(a.d-b.d));
+  else rowData.sort((a,b)=>ss.dir*(b.ventaja-a.ventaja));
+
+  const mkTh=(lbl,col,side)=>{
+    const a=ss.col===col;const arr=a?(ss.dir===1?'▲':'▼'):'⇅';
+    return`<th class="sortable" style="${a?'color:var(--gold)':''}" onclick="sortTable('${side}','${col}')">${lbl} <span style="font-size:8px;opacity:.7">${arr}</span></th>`;
+  };
+  const ht=document.querySelector('#scen-head-b tr');ht.innerHTML=mkTh('DTTO','dtto','b');
+  [1,2,3,4,5].forEach((b,i)=>{
+    const nm=blockLabel(b,true);
+    ht.innerHTML+=`<th style="color:${BC[i]};max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${nm}">${nm}</th>`;
+  });
+  ht.innerHTML+=mkTh('VEN.MORENA','ventaja','b')+'<th>GANADOR</th>';
+
+  const tbody=document.querySelector('#scen-table-b tbody');tbody.innerHTML='';
+  const tots=[0,0,0,0,0];let totV=0;
+  rowData.forEach(({d,tot,bv,mx,wi,ventaja,vPct})=>{
+    bv.forEach((v,i)=>tots[i]+=v);totV+=ventaja;
+    const tr=document.createElement('tr');tr.className='clickable'+(getDist()===String(d)?' active-dist':'');
+    tr.addEventListener('click',()=>selectDistrict(d));
+    let c=`<td>${String(d).padStart(2,'0')}</td>`;
+    bv.forEach((v,i)=>{const p=pct(v,tot);c+=`<td class="${v===mx?'win':''}" style="${v===mx?'color:'+BC[i]:'color:var(--text1)'}">${fmt(v)}<br><span style="font-size:9px;opacity:.7">${p}%</span></td>`;});
+    const vc=ventaja>=0?'var(--green)':'var(--red)';const vs=ventaja>=0?'+':'';
+    c+=`<td class="${ventaja>=0?'pos':'neg'}">${vs}${fmt(ventaja)}<br><span style="font-size:9px">${vs}${vPct}%</span></td>`;
+    c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${blockLabel(wi+1,true)}</td>`;
+    tr.innerHTML=c;tbody.appendChild(tr);
+  });
+  const tr=document.createElement('tr');tr.className='total-row';
+  const gt=tots.reduce((s,v)=>s+v,0);let c='<td>TOTAL</td>';
+  tots.forEach((v,i)=>{c+=`<td style="color:${BC[i]}">${fmt(v)}·${pct(v,gt)}%</td>`;});
+  const vc=totV>=0?'var(--green)':'var(--red)';
+  c+=`<td style="color:${vc}">${totV>=0?'+':''}${fmt(totV)}</td>`;
+  const wi=tots.indexOf(Math.max(...tots));
+  c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${blockLabel(wi+1,true)}</td>`;
+  tr.innerHTML=c;tbody.appendChild(tr);
+}
+
+function sortTable(side,col){
+  const ss=side==='a'?sortStateA:sortStateB;
+  if(ss.col===col)ss.dir*=-1;else{ss.col=col;ss.dir=-1;}
+  if(side==='a')renderTableA();else renderTableB();
+}
+
+// ── MERGE ─────────────────────────────────────────────────────────────────────
+function toggleMerge(){
+  mergeVisible=!mergeVisible;
+  document.getElementById('merged-result').classList.toggle('show',mergeVisible);
+  document.getElementById('merge-btn').textContent=mergeVisible?'⊖ Ocultar Comparativa':'⊕ Comparar A vs B por Distrito';
+  if(mergeVisible)renderMerged();
+}
+function renderMerged(){
+  [1,2,3,4,5].forEach(b=>{
+    const ha=document.getElementById('mha'+b);if(ha)ha.textContent=blockLabel(b,false);
+    const hb=document.getElementById('mhb'+b);if(hb)hb.textContent=blockLabel(b,true);
+  });
+  const y=getY();const rows=y==='all'?D:D.filter(r=>r.y===+y);
+  const ds=dList(y==='all'?null:+y);
+  const tbody=document.querySelector('#merged-table tbody');tbody.innerHTML='';
+  let same=0,diff=0;
+  ds.forEach(d=>{
+    const dr=rows.filter(r=>r.d===d);const tot=dr.reduce((s,r)=>s+r.T,0);
+    const av=[1,2,3,4,5].map(b=>sumB(dr,blocks[b]||[]));
+    const bv=[1,2,3,4,5].map(b=>sumB(dr,blocksB[b]||[]));
+    const wA=av.indexOf(Math.max(...av)),wB=bv.indexOf(Math.max(...bv));
+    const ok=wA===wB;if(ok)same++;else diff++;
+    const tr=document.createElement('tr');tr.className='clickable';tr.addEventListener('click',()=>selectDistrict(d));
+    let c=`<td>${String(d).padStart(2,'0')}</td>`;
+    av.forEach((v,i)=>{const p=pct(v,tot);c+=`<td class="${i===wA?'win':''}" style="${i===wA?'color:'+BC[i]:'color:var(--text1)'}">${fmt(v)}<br><span style="font-size:9px;opacity:.7">${p}%</span></td>`;});
+    c+=`<td style="color:${BC[wA]};font-weight:800">${blockLabel(wA+1,false)}</td>`;
+    bv.forEach((v,i)=>{const p=pct(v,tot);c+=`<td class="${i===wB?'win':''}" style="${i===wB?'color:'+BC[i]:'color:var(--text1)'}">${fmt(v)}<br><span style="font-size:9px;opacity:.7">${p}%</span></td>`;});
+    c+=`<td style="color:${BC[wB]};font-weight:800">${blockLabel(wB+1,true)}</td>`;
+    c+=`<td style="font-weight:800;color:${ok?'var(--green)':'var(--red)'}">${ok?'🟢 Igual':'🔴 Distinto'}</td>`;
+    tr.innerHTML=c;tbody.appendChild(tr);
+  });
+  const tr=document.createElement('tr');tr.className='total-row';
+  tr.innerHTML=`<td colspan="14" style="text-align:center;color:var(--gold)">Mismo ganador: <span style="color:var(--green)">${same}</span> distritos · Diferente: <span style="color:var(--red)">${diff}</span> distritos</td>`;
+  tbody.appendChild(tr);
+}
+
+// ── COMP CHART ────────────────────────────────────────────────────────────────
+function renderCompChart(){
+  const dist=document.getElementById('comp-chart-district').value;
+  const yrs=[2018,2021,2024];const al=['ff','cc','88'];
+  const getYR=y=>dist==='all'?D.filter(r=>r.y===y):D.filter(r=>r.y===y&&r.d===+dist);
+  const ab=[1,2,3,4,5].filter(b=>(blocks[b]||[]).length>0);
+  const bb=[1,2,3,4,5].filter(b=>(blocksB[b]||[]).length>0);
+  const labelsA=ab.map(b=>'A:'+blockLabel(b,false));
+  const labelsB=bb.map(b=>'B:'+blockLabel(b,true));
+  const allL=[...labelsA,...labelsB];
+  const datasets=yrs.map((y,i)=>{
+    const yr=getYR(y);const tot=yr.reduce((s,r)=>s+r.T,0);
+    const aVals=ab.map(b=>tot?sumB(yr,blocks[b]||[])/tot*100:0);
+    const bVals=bb.map(b=>tot?sumB(yr,blocksB[b]||[])/tot*100:0);
+    return{label:String(y),data:[...aVals,...bVals],
+      backgroundColor:[...ab.map(b=>BC[b-1]+al[i]),...bb.map(b=>BC[b-1]+al[i]+'88')],
+      borderColor:[...ab.map(b=>BC[b-1]),...bb.map(b=>BC[b-1])],
+      borderWidth:1,borderRadius:3};
+  });
+  const ctx=document.getElementById('comp-canvas').getContext('2d');
+  if(compChart)compChart.destroy();
+  compChart=new Chart(ctx,{type:'bar',data:{labels:allL,datasets},options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:'#8fa3c7',font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+'%'}}},
+    scales:{x:{ticks:{color:'#8fa3c7',font:{size:9},maxRotation:30},grid:{color:'rgba(140,180,240,0.05)'}},
+      y:{ticks:{color:'#8fa3c7',font:{size:10},callback:v=>v+'%'},grid:{color:'rgba(140,180,240,0.05)'},suggestedMax:60,min:0}}}});
+}
+
+// ── DIPUTADOS ─────────────────────────────────────────────────────────────────
+function renderDiputados(){
+  const tbody=document.getElementById('dip-tbody');
+  const thead=document.getElementById('dip-thead');
+  if(!tbody||!thead)return;
+  const y=getY();const yrs=y==='all'?[2018,2021,2024]:[+y];
+  thead.innerHTML='<tr><th>DTTO</th>'+yrs.map(yr=>`<th style="color:${yr===2024?'var(--gold)':yr===2021?'#aaa':'#888'}">${yr}${yr===2024?' · LXIV':yr===2021?' · LXIII':' · LXII'}</th>`).join('')+'</tr>';
+  tbody.innerHTML='';
+  for(let d=1;d<=20;d++){
+    const isActive=getDist()===String(d);
+    const tr=document.createElement('tr');tr.className='clickable'+(isActive?' active-dist':'');
+    tr.addEventListener('click',()=>selectDistrict(d));
+    let c=`<td style="font-weight:800;color:${isActive?'var(--gold)':'var(--cyan)'};text-align:center">${String(d).padStart(2,'0')}${isActive?' ◀':''}</td>`;
+    yrs.forEach(yr=>{
+      const dip=DIPS[yr]&&DIPS[yr][d];
+      if(!dip){c+=`<td style="color:var(--text2)">—</td>`;return;}
+      const col=PC[dip.partido]||'#888';
+      c+=`<td style="background:${col}12"><div class="dip-cell"><div class="dip-dot" style="background:${col}"></div><div><div style="font-weight:700;color:${col};font-size:10px">${dip.nombre}</div><div style="font-size:9px;color:${col};opacity:.7">${dip.partido}</div></div></div></td>`;
+    });
+    tr.innerHTML=c;tbody.appendChild(tr);
+  }
+}
+
+// ── SELECT DISTRICT ───────────────────────────────────────────────────────────
+function selectDistrict(d){
+  const sel=document.getElementById('filter-district');
+  sel.value=sel.value===String(d)?'all':String(d);
+  refresh();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── BOOT ──────────────────────────────────────────────────────────────────────
 applyPreset('4t');
 applyPresetB('default');
 renderCompChart();
