@@ -16,8 +16,9 @@ body {
  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
  background:linear-gradient(180deg,#050810 0%,#0a0e1a 50%,#050810 100%);
  background-attachment:fixed; color:var(--text-pri); min-height:100vh; padding:14px; font-size:13px;
+ overflow-x:hidden;
 }
-.container{max-width:1400px;margin:0 auto;}
+.container{max-width:1400px;margin:0 auto;overflow-x:hidden;}
 .header{background:linear-gradient(135deg,rgba(0,240,255,0.06),rgba(255,177,59,0.04));border:1px solid rgba(0,240,255,0.2);border-radius:10px;padding:16px 20px;margin-bottom:14px;position:relative;overflow:hidden;}
 .header::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan) 0%,var(--gold) 50%,var(--cyan) 100%);animation:scan 4s linear infinite;}
 @keyframes scan{0%,100%{opacity:.4}50%{opacity:1}}
@@ -97,14 +98,14 @@ body {
 .leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text-sec);}
 .leg-dot{width:10px;height:10px;border-radius:2px;}
 .chart-wrap{position:relative;width:100%;height:260px;}
-.scenarios-container{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.scenarios-container{display:grid;grid-template-columns:1fr 1fr;gap:14px;min-width:0;}
 @media(max-width:900px){.scenarios-container,.blocks-grid{grid-template-columns:1fr;}}
-.scen-card{background:rgba(15,21,37,0.7);border:1px solid var(--border);border-radius:8px;padding:12px;}
+.scen-card{background:rgba(15,21,37,0.7);border:1px solid var(--border);border-radius:8px;padding:12px;min-width:0;overflow:hidden;}
 .scen-card-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .scen-name{background:transparent;border:none;border-bottom:1px dotted;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;outline:none;flex:1;min-width:0;}
-.scen-table{width:100%;border-collapse:collapse;font-size:11px;}
-.scen-table th{background:rgba(5,8,16,0.6);color:var(--text-tri);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:5px 7px;text-align:left;border-bottom:1px solid var(--border);}
-.scen-table td{padding:5px 7px;border-bottom:1px solid rgba(140,180,240,0.06);font-variant-numeric:tabular-nums;vertical-align:middle;}
+.scen-table{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed;}
+.scen-table th{background:rgba(5,8,16,0.6);color:var(--text-tri);font-size:9px;letter-spacing:.5px;text-transform:uppercase;padding:4px 5px;text-align:left;border-bottom:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;}
+.scen-table td{padding:4px 5px;border-bottom:1px solid rgba(140,180,240,0.06);font-variant-numeric:tabular-nums;vertical-align:middle;font-size:11px;}
 .scen-table tr:last-child td{background:rgba(255,177,59,0.05);font-weight:700;}
 .scen-table tr:hover td{background:rgba(0,240,255,0.03);}
 .scen-table .win{font-weight:800;}
@@ -126,7 +127,7 @@ body {
 .merged-result{margin-top:14px;padding:14px;background:rgba(177,78,255,0.06);border:1px solid rgba(177,78,255,0.3);border-radius:8px;display:none;overflow-x:auto;}
 .merged-result.show{display:block;}
 .merged-title{font-size:11px;color:var(--purple);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
-.merged-table{width:100%;border-collapse:collapse;font-size:11px;min-width:800px;}
+.merged-table{width:100%;border-collapse:collapse;font-size:10px;}
 .merged-table th{background:rgba(177,78,255,0.1);color:var(--purple);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:5px 7px;text-align:left;border-bottom:1px solid rgba(177,78,255,0.2);}
 .merged-table td{padding:5px 7px;border-bottom:1px solid rgba(140,180,240,0.06);font-variant-numeric:tabular-nums;vertical-align:middle;}
 .merged-table .win{font-weight:800;}
@@ -217,7 +218,7 @@ body {
   
   <div style="font-size:9px;color:var(--text-tri);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">▸ Votos por Partido · Por Distrito</div>
   <div style="overflow-x:auto;margin-bottom:18px;">
-    <table class="scen-table" id="party-table-main" style="min-width:600px;">
+    <table class="scen-table" id="party-table-main">
       <thead id="party-head-main"><tr><th>DTTO</th><th>GANADOR</th></tr></thead>
       <tbody></tbody>
     </table>
@@ -231,7 +232,7 @@ body {
       <table class="scen-table" id="scen-table-a">
         <thead id="scen-head-a"><tr><th>DTTO</th><th>B1</th><th>B2</th><th>B3</th><th>GANADOR</th></tr></thead>
         <tbody></tbody>
-      </table>
+      </table></div>
     </div>
 
     
@@ -256,7 +257,7 @@ body {
       <table class="scen-table" id="scen-table-b">
         <thead id="scen-head-b"><tr><th>DTTO</th><th>B1</th><th>B2</th><th>B3</th><th>B4</th><th>GANADOR</th></tr></thead>
         <tbody></tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -265,7 +266,7 @@ body {
   </div>
   <div class="merged-result" id="merged-result">
     <div class="merged-title">⚔ Comparativa A vs B · Ganadores por Distrito</div>
-    <table class="merged-table" id="merged-table">
+    <div style="overflow-x:auto;"><table class="merged-table" id="merged-table">
       <thead><tr>
         <th>DTTO</th>
         <th id="mha1">A-B1</th><th id="mha2">A-B2</th><th id="mha3">A-B3</th><th id="mha4">A-B4</th><th id="mha5">A-B5</th><th>GANADOR A</th>
@@ -673,7 +674,7 @@ function updBlockKPIs(rows){
     const c=document.createElement('div');c.className='kpi-card';
     c.innerHTML=`<div class="kpi-label">${nm}</div><div class="kpi-val" style="color:${BC[i]}">${p}%</div><div class="kpi-sub">${fmt(v)} votos</div>`;
     kpi.appendChild(c);
-    const bClass=b<=3?`b${b}`:b==4?'b4':'b5';const bStyle=b>=4?`;background:${BC[b-1]}`:'';bh+=`<div class="bar-seg ${bClass}" style="width:${tot?v/tot*100:0}%${bStyle}">${p}</div>`;
+    const bClass2=b<=3?`b${b}`:b==4?'b4':'b5';const bStyle2=b>=4?`;background:${BC[b-1]}`:'';bh+=`<div class="bar-seg ${bClass2}" style="width:${tot?v/tot*100:0}%${bStyle2}">${p}%</div>`;
     lh+=`<div class="leg-item"><div class="leg-dot" style="background:${BC[i]}"></div>${nm}·${fmt(v)} (${p})</div>`;
     document.getElementById('block-pct-'+b).textContent=p+'%';
     document.getElementById('block-votes-'+b).textContent=fmt(v)+' votos';
@@ -919,11 +920,10 @@ function renderTableA(){
   };
   headTr.innerHTML=mkTh('DTTO','dtto','a');
   [1,2,3,4,5].forEach((b,i)=>{
-    const parties=(blocks[b]||[]).map(p=>PL[p]||p).join('+');
-    const label=parties||'(vacío)';
-    headTr.innerHTML+=`<th style="color:${BC[i]};max-width:120px;white-space:normal;font-size:9px;line-height:1.3">${label}</th>`;
+    const nm=document.getElementById('block-name-'+b)?.value||'B'+b;
+    headTr.innerHTML+=`<th style="color:${BC[i]};max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px" title="${nm}">${nm}</th>`;
   });
-  headTr.innerHTML+=mkTh('VENTAJA MORENA','ventaja','a')+'<th>GANADOR</th>';
+  headTr.innerHTML+=mkTh('VEN.MORENA','ventaja','a')+'<th>GANADOR</th>';
 
   const tbody=document.querySelector('#scen-table-a tbody');tbody.innerHTML='';
   let tots=[0,0,0,0,0],totVentaja=0;
@@ -938,7 +938,7 @@ function renderTableA(){
     bv.forEach((v,i)=>{const p=tot?(v/tot*100).toFixed(1):0;c+=`<td class="${v===mx?'win':''}" style="${v===mx?'color:'+BC[i]:''}">${fmt(v)} <span style="font-size:9px;color:var(--text-tri)">${p}%</span></td>`;});
     const vColA=ventaja>=0?'var(--green)':'var(--red)';const vSignA=ventaja>=0?'+':'';
     c+=`<td style="color:${vColA};font-weight:700">${vSignA}${fmt(ventaja)}<br><span style="font-size:9px;opacity:.8">${vSignA}${ventajaPct}%</span></td>`;
-    c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${document.getElementById('block-name-'+(wi+1)).value||'B'+(wi+1)}</td>`;
+    const nmA=document.getElementById('block-name-'+(wi+1))?.value||'B'+(wi+1);c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${nmA}</td>`;
     tr.innerHTML=c;tbody.appendChild(tr);
   });
   const tr=document.createElement('tr');let c=`<td>TOTAL</td>`;
@@ -947,7 +947,7 @@ function renderTableA(){
   const tvColA=totVentaja>=0?'var(--green)':'var(--red)';
   c+=`<td style="color:${tvColA}">${totVentaja>=0?'+':''}${fmt(totVentaja)}</td>`;
   const wi=tots.indexOf(Math.max(...tots));
-  c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${(blocks[wi+1]||[]).map(p=>PL[p]||p).join('+')||'B'+(wi+1)}</td>`;
+  const nmAT=document.getElementById('block-name-'+(wi+1))?.value||'B'+(wi+1);c+=`<td style="color:${BC[wi]};font-weight:800">✅ ${nmAT}</td>`;
   tr.innerHTML=c;tbody.appendChild(tr);
 }
 
@@ -985,11 +985,10 @@ function renderTableB(){
   };
   headTr.innerHTML=mkTh('DTTO','dtto','b');
   [1,2,3,4,5].forEach((b,i)=>{
-    const parties=(blocksB[b]||[]).map(p=>PL[p]||p).join('+');
-    const label=parties||'(vacío)';
-    headTr.innerHTML+=`<th style="color:${BC4[i]};max-width:120px;white-space:normal;font-size:9px;line-height:1.3">${label}</th>`;
+    const nm=document.getElementById('block-b-name-'+b)?.value||'B'+b;
+    headTr.innerHTML+=`<th style="color:${BC4[i]};max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px" title="${nm}">${nm}</th>`;
   });
-  headTr.innerHTML+=mkTh('VENTAJA MORENA','ventaja','b')+'<th>GANADOR</th>';
+  headTr.innerHTML+=mkTh('VEN.MORENA','ventaja','b')+'<th>GANADOR</th>';
 
   const tbody=document.querySelector('#scen-table-b tbody');tbody.innerHTML='';
   let tots=[0,0,0,0,0],totVentaja=0;
@@ -1004,7 +1003,7 @@ function renderTableB(){
     bv.forEach((v,i)=>{const p=tot?(v/tot*100).toFixed(1):0;c+=`<td class="${v===mx?'win':''}" style="${v===mx?'color:'+BC4[i]:''}">${fmt(v)} <span style="font-size:9px;color:var(--text-tri)">${p}%</span></td>`;});
     const vColB=ventaja>=0?'var(--green)':'var(--red)';const vSignB=ventaja>=0?'+':'';
     c+=`<td style="color:${vColB};font-weight:700">${vSignB}${fmt(ventaja)}<br><span style="font-size:9px;opacity:.8">${vSignB}${ventajaPct}%</span></td>`;
-    c+=`<td style="color:${BC4[wi]};font-weight:800">✅ ${document.getElementById('block-b-name-'+(wi+1)).value||'B'+(wi+1)}</td>`;
+    const nmB=document.getElementById('block-b-name-'+(wi+1))?.value||'B'+(wi+1);c+=`<td style="color:${BC4[wi]};font-weight:800">✅ ${nmB}</td>`;
     tr.innerHTML=c;tbody.appendChild(tr);
   });
   const tr=document.createElement('tr');let c=`<td>TOTAL</td>`;
@@ -1013,7 +1012,7 @@ function renderTableB(){
   const tvColB=totVentaja>=0?'var(--green)':'var(--red)';
   c+=`<td style="color:${tvColB}">${totVentaja>=0?'+':''}${fmt(totVentaja)}</td>`;
   const wi=tots.indexOf(Math.max(...tots));
-  c+=`<td style="color:${BC4[wi]};font-weight:800">✅ ${(blocksB[wi+1]||[]).map(p=>PL[p]||p).join('+')||'B'+(wi+1)}</td>`;
+  const nmBT=document.getElementById('block-b-name-'+(wi+1))?.value||'B'+(wi+1);c+=`<td style="color:${BC4[wi]};font-weight:800">✅ ${nmBT}</td>`;
   tr.innerHTML=c;tbody.appendChild(tr);
 }
 
